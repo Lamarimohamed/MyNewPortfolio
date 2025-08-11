@@ -403,30 +403,6 @@
     .nav-item {
       @apply text-sm;
     }
-    
-    /* Timeline mobile optimizations */
-    .timeline-mobile {
-      @apply max-w-sm mx-auto;
-    }
-    
-    /* Disable heavy animations on mobile for better performance */
-    .floating,
-    .floating-slow,
-    .pulse-glow {
-      animation: none !important;
-    }
-    
-    /* Reduce blur effects on mobile */
-    .glass-card {
-      backdrop-filter: blur(5px) !important;
-    }
-    
-    /* Optimize transform properties for mobile */
-    .optimize-mobile {
-      will-change: transform;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
   }
   
   @media (max-width: 480px) {
@@ -445,43 +421,12 @@
     .profile-image {
       @apply w-64 h-64;
     }
-    
-    /* Timeline cards optimization for very small screens */
-    .timeline-card-mobile {
-      @apply p-3 text-xs;
-    }
-    
-    /* Reduce spacing on very small screens */
-    section {
-      @apply py-16;
-    }
   }
   
   /* Tablet improvements */
   @media (min-width: 769px) and (max-width: 1024px) {
     .projects-grid {
       @apply grid-cols-2 gap-6;
-    }
-    
-    /* Re-enable animations on tablet+ */
-    .floating,
-    .floating-slow,
-    .pulse-glow {
-      animation: revert !important;
-    }
-  }
-  
-  /* Large desktop optimizations */
-  @media (min-width: 1025px) {
-    /* Enable all animations and effects on large screens */
-    .spline-container {
-      opacity: 0.4;
-    }
-    
-    .floating,
-    .floating-slow,
-    .pulse-glow {
-      animation: revert !important;
     }
   }
 
