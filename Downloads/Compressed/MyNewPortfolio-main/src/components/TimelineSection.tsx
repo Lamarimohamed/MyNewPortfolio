@@ -77,7 +77,7 @@ export const TimelineSection = () => {
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // Changed to lg breakpoint for better layout
+      setIsMobile(window.innerWidth < 768); // Back to standard mobile breakpoint
     };
     
     checkMobile();
@@ -90,30 +90,31 @@ export const TimelineSection = () => {
     // Ensure immediate visibility for all screen sizes
     const tl = gsap.timeline({ delay: 0.1 });
 
-    // Pre-set elements to be visible
+    // Pre-set elements to be visible immediately without blur
     gsap.set([titleRef.current, timelineRef.current], {
       opacity: 1,
-      visibility: 'visible'
+      visibility: 'visible',
+      filter: 'blur(0px)'
     });
 
     if (!isMobile) {
-      // Desktop/tablet animations
+      // Desktop/tablet animations - no blur effects
       tl.fromTo(titleRef.current,
-        { opacity: 0, y: 30, filter: 'blur(5px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out' }
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
       );
 
-      // Timeline items animation - faster
+      // Timeline items animation - no blur effects
       const timelineItems = timelineRef.current?.children;
       if (timelineItems) {
         tl.fromTo(timelineItems,
-          { opacity: 0, x: (index) => index % 2 === 0 ? -50 : 50, filter: 'blur(5px)' },
-          { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.4, stagger: 0.08, ease: 'power2.out' },
+          { opacity: 0, x: (index) => index % 2 === 0 ? -50 : 50 },
+          { opacity: 1, x: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out' },
           '-=0.2'
         );
       }
     } else {
-      // Mobile: simple fade-in
+      // Mobile: simple fade-in - no blur effects
       tl.fromTo(titleRef.current,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
@@ -152,12 +153,12 @@ export const TimelineSection = () => {
 
         <div ref={timelineRef} className="relative">
           {isMobile ? (
-            // Mobile/Tablet Layout: Full-width cards with better spacing
+            // Mobile Layout: Full-width cards with better spacing
             <div className="space-y-8" role="list" aria-label="Professional experience timeline">
               {experiences.map((exp, index) => (
                 <article 
                   key={index} 
-                  className="glass-card p-4 sm:p-6 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full max-w-none" 
+                  className="glass-card p-4 sm:p-6 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full" 
                   role="listitem"
                 >
                   {/* Header */}
@@ -184,7 +185,7 @@ export const TimelineSection = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-chrome-medium text-sm sm:text-base leading-relaxed mb-4">
+                  <p className="text-chrome-medium text-sm sm:text-base leading-relaxed mb-4 break-words">
                     {exp.description}
                   </p>
 
@@ -196,7 +197,7 @@ export const TimelineSection = () => {
                         {exp.achievements.map((achievement, idx) => (
                           <li key={idx} className="flex items-start gap-2 text-chrome-medium text-sm">
                             <ArrowRight size={14} className="text-neon-blue mt-0.5 flex-shrink-0" aria-hidden="true" />
-                            <span className="leading-relaxed">{achievement}</span>
+                            <span className="leading-relaxed break-words">{achievement}</span>
                           </li>
                         ))}
                       </ul>
@@ -218,8 +219,8 @@ export const TimelineSection = () => {
               ))}
             </div>
           ) : (
-            // Desktop Layout: Traditional timeline with better responsive handling
-            <>
+            // Desktop/Tablet Layout: Responsive timeline
+            <div className="hidden md:block">
               {/* Timeline Line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan" aria-hidden="true"></div>
 
@@ -262,7 +263,7 @@ export const TimelineSection = () => {
                         </div>
 
                         {/* Description */}
-                        <p className="text-chrome-medium text-sm leading-relaxed mb-4">
+                        <p className="text-chrome-medium text-sm leading-relaxed mb-4 break-words">
                           {exp.description}
                         </p>
 
@@ -274,7 +275,7 @@ export const TimelineSection = () => {
                               {exp.achievements.map((achievement, idx) => (
                                 <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
                                   <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
-                                  <span className="leading-relaxed">{achievement}</span>
+                                  <span className="leading-relaxed break-words">{achievement}</span>
                                 </li>
                               ))}
                             </ul>
@@ -300,8 +301,76 @@ export const TimelineSection = () => {
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
+
+          {/* Tablet Layout: Single column for medium screens */}
+          <div className="block md:hidden sm:block">
+            <div className="space-y-8 max-w-2xl mx-auto" role="list" aria-label="Professional experience timeline">
+              {experiences.map((exp, index) => (
+                <article 
+                  key={index} 
+                  className="glass-card p-6 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full" 
+                  role="listitem"
+                >
+                  {/* Header */}
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
+                      {exp.role}
+                    </h3>
+                    <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
+                      <Briefcase size={16} aria-hidden="true" />
+                      <span>{exp.company}</span>
+                    </div>
+                  </div>
+
+                  {/* Meta Info */}
+                  <div className="flex flex-row gap-6 mb-4 text-chrome-medium text-sm">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={14} aria-hidden="true" />
+                      <span>{exp.period}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin size={14} aria-hidden="true" />
+                      <span>{exp.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-chrome-medium text-base leading-relaxed mb-4 break-words">
+                    {exp.description}
+                  </p>
+
+                  {/* Achievements */}
+                  {exp.achievements && (
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-chrome-light mb-3">Key Achievements:</h4>
+                      <ul className="space-y-2">
+                        {exp.achievements.map((achievement, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-chrome-medium text-sm">
+                            <ArrowRight size={14} className="text-neon-blue mt-0.5 flex-shrink-0" aria-hidden="true" />
+                            <span className="leading-relaxed break-words">{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2" aria-label="Technologies used">
+                    {exp.technologies.map((tech, techIndex) => (
+                      <span 
+                        key={techIndex}
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20 whitespace-nowrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Floating Background Elements */}
