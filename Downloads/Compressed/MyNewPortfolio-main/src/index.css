@@ -123,9 +123,15 @@
       font-size: 16px !important; /* Prevents zoom on iOS */
     }
 
-    /* Ensure icons are properly aligned on mobile */
+    /* Ensure icons and text are properly separated on mobile */
     .relative .fas {
       left: 1rem !important;
+    }
+
+    /* Ensure proper text spacing from icons on mobile */
+    input[type="text"],
+    input[type="email"] {
+      padding-left: 3.5rem !important; /* Increased spacing for mobile */
     }
   }
 

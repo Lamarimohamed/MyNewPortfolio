@@ -141,7 +141,7 @@ export const ContactSection = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-xl glass-card border border-chrome-border/30 bg-chrome-dark/20 text-foreground placeholder-chrome-medium focus:outline-none focus:border-neon-blue focus:glow transition-all duration-300"
+                  className="w-full pl-14 pr-4 py-3 rounded-xl glass-card border border-chrome-border/30 bg-chrome-dark/20 text-foreground placeholder-chrome-medium focus:outline-none focus:border-neon-blue focus:glow transition-all duration-300"
                   placeholder="John Doe"
                   aria-describedby="name-error"
                 />
@@ -162,7 +162,7 @@ export const ContactSection = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-xl glass-card border border-chrome-border/30 bg-chrome-dark/20 text-foreground placeholder-chrome-medium focus:outline-none focus:border-neon-blue focus:glow transition-all duration-300"
+                  className="w-full pl-14 pr-4 py-3 rounded-xl glass-card border border-chrome-border/30 bg-chrome-dark/20 text-foreground placeholder-chrome-medium focus:outline-none focus:border-neon-blue focus:glow transition-all duration-300"
                   placeholder="your.email@example.com"
                   aria-describedby="email-error"
                 />
