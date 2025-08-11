@@ -448,8 +448,26 @@
       pointer-events: none; /* Only disable on very slow devices */
     }
 
-    /* Improve touch responsiveness */
-    body {
+    /* Better input alignment on mobile */
+    input[type="text"], 
+    input[type="email"], 
+    textarea {
+      font-size: 16px !important; /* Prevents zoom on iOS */
+    }
+
+    /* Ensure icons and text are properly separated on mobile */
+    .relative .fas {
+      left: 1rem !important;
+    }
+
+    /* Ensure proper text spacing from icons on mobile */
+    input[type="text"],
+    input[type="email"] {
+      padding-left: 3.5rem !important; /* Increased spacing for mobile */
+    }
+
+    /* Improve touch responsiveness - only on mobile */
+    html {
       -webkit-touch-callout: none;
       -webkit-user-select: none;
       -khtml-user-select: none;
@@ -459,7 +477,7 @@
       touch-action: manipulation;
     }
 
-    /* Prevent text selection during 3D interaction */
+    /* Prevent text selection during 3D interaction - only on mobile */
     .spline-container * {
       -webkit-touch-callout: none;
       -webkit-user-select: none;
