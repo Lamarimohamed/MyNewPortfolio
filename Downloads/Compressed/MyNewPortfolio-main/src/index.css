@@ -393,7 +393,7 @@
   /* Spline Container - Optimized for performance and mouse interaction */
   .spline-container {
     @apply absolute inset-0;
-    opacity: 0.3;
+    opacity: 0.35; /* Slightly increased base opacity */
     mask: radial-gradient(ellipse at center, black 40%, transparent 70%);
     will-change: transform;
     transform: translateZ(0);
@@ -414,7 +414,7 @@
 
   /* Low performance version - lighter but still interactive */
   .spline-container.low-performance {
-    opacity: 0.15;
+    opacity: 0.2; /* Increased from 0.15 to 0.2 */
     transform: scale(0.9) translateZ(0);
     pointer-events: none; /* Disable interaction on low performance */
   }
@@ -424,28 +424,52 @@
     pointer-events: none;
   }
 
-  /* Mobile optimizations for 3D content */
+  /* Mobile optimizations for 3D content - more visible */
   @media (max-width: 768px) {
     .spline-container {
-      opacity: 0.2 !important;
-      transform: scale(0.85) translateZ(0);
+      opacity: 0.25 !important; /* Increased from 0.2 to 0.25 */
+      transform: scale(0.9) translateZ(0); /* Increased from 0.85 to 0.9 */
       pointer-events: none; /* Disable on mobile for better performance */
     }
     
     .spline-container iframe {
-      transform: scale(0.85) translateZ(0);
+      transform: scale(0.9) translateZ(0);
       pointer-events: none;
     }
 
     .spline-container.low-performance {
-      opacity: 0.1 !important;
+      opacity: 0.15 !important; /* Increased from 0.1 to 0.15 */
     }
+  }
+
+  /* Better image loading and browser compatibility */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: -webkit-optimize-contrast; /* Safari */
+    image-rendering: -moz-crisp-edges; /* Firefox */
+    image-rendering: crisp-edges; /* Standard */
+    image-rendering: pixelated; /* Fallback */
+    -webkit-backface-visibility: hidden; /* Safari fix */
+    backface-visibility: hidden;
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+
+  /* Fix for Opera and other browsers */
+  img[src*="lovable-uploads"] {
+    will-change: auto;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
   }
 
   /* Reduce motion for performance */
   @media (prefers-reduced-motion: reduce) {
     .spline-container {
-      opacity: 0.1 !important;
+      opacity: 0.15 !important;
       transform: none !important;
       pointer-events: none !important;
     }

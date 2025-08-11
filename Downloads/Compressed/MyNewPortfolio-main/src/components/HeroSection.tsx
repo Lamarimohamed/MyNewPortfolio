@@ -26,7 +26,7 @@ export const HeroSection = () => {
 
     checkPerformance();
 
-    // Mouse tracking for 3D interaction
+    // Mouse tracking for 3D interaction - optimized for performance
     const handleMouseMove = (e: MouseEvent) => {
       if (heroRef.current && !isLowPerformance) {
         const rect = heroRef.current.getBoundingClientRect();
@@ -35,19 +35,19 @@ export const HeroSection = () => {
         
         setMousePosition({ x, y });
         
-        // Apply smooth 3D transformation based on mouse position
+        // Reduced movement for smoother performance
         gsap.to(splineRef.current, {
-          rotationY: (x - 0.5) * 15, // Increased rotation for better effect
-          rotationX: (y - 0.5) * -8, // Increased rotation for better effect
-          x: (x - 0.5) * 30, // Increased movement
-          y: (y - 0.5) * 15, // Increased movement
-          duration: 0.6,
-          ease: "power2.out"
+          rotationY: (x - 0.5) * 8, // Reduced from 15 to 8
+          rotationX: (y - 0.5) * -4, // Reduced from -8 to -4
+          x: (x - 0.5) * 15, // Reduced from 30 to 15
+          y: (y - 0.5) * 8, // Reduced from 15 to 8
+          duration: 1.0, // Increased duration for smoother animation
+          ease: "power1.out" // Smoother easing
         });
       }
     };
 
-    // Reset 3D position when mouse leaves
+    // Reset 3D position when mouse leaves - smoother
     const handleMouseLeave = () => {
       if (!isLowPerformance) {
         gsap.to(splineRef.current, {
@@ -55,8 +55,8 @@ export const HeroSection = () => {
           rotationX: 0,
           x: 0,
           y: 0,
-          duration: 1.2,
-          ease: "power2.out"
+          duration: 1.5, // Slower return for smoothness
+          ease: "power1.out"
         });
       }
     };

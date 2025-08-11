@@ -84,9 +84,24 @@ export const AboutSection = () => {
                   src="/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png"
                   alt="Mohamed Lamari - Software Engineer and Full-Stack Developer"
                   className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded-full group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                   width={384}
                   height={384}
+                  onError={(e) => {
+                    console.log('Image failed to load, trying fallback');
+                    const img = e.target as HTMLImageElement;
+                    img.src = '/placeholder.svg';
+                  }}
+                  onLoad={() => {
+                    console.log('Profile image loaded successfully');
+                  }}
+                  style={{
+                    imageRendering: '-webkit-optimize-contrast',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)'
+                  }}
                 />
               </div>
               

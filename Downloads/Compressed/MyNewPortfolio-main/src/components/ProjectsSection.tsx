@@ -145,9 +145,21 @@ export const ProjectsSection = () => {
                   src={project.image}
                   alt={`Screenshot of ${project.title} project`}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                   width={400}
                   height={200}
+                  onError={(e) => {
+                    console.log(`Project image failed to load: ${project.title}`);
+                    const img = e.target as HTMLImageElement;
+                    img.src = '/placeholder.svg';
+                  }}
+                  style={{
+                    imageRendering: '-webkit-optimize-contrast',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)'
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               </div>
