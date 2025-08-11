@@ -15,56 +15,89 @@ export const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Performance detection
+    // Performance detection - enable animation on mobile too
     const checkPerformance = () => {
       const isMobile = window.innerWidth < 768;
       const isSlowDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
       const hasLowMemory = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
       
-      setIsLowPerformance(isMobile || isSlowDevice || hasLowMemory);
+      // Only disable on very slow devices, not just mobile
+      setIsLowPerformance(isSlowDevice || hasLowMemory);
     };
 
     checkPerformance();
 
-    // Mouse tracking for 3D interaction - optimized for performance
+    // Mouse tracking for 3D interaction - now works on mobile too
     const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current && !isLowPerformance) {
+      if (heroRef.current) {
         const rect = heroRef.current.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
         
         setMousePosition({ x, y });
         
-        // Reduced movement for smoother performance
+        // Lighter movement for mobile, full movement for desktop
+        const isMobile = window.innerWidth < 768;
+        const rotationMultiplier = isMobile ? 0.5 : 1;
+        const moveMultiplier = isMobile ? 0.7 : 1;
+        
         gsap.to(splineRef.current, {
-          rotationY: (x - 0.5) * 8, // Reduced from 15 to 8
-          rotationX: (y - 0.5) * -4, // Reduced from -8 to -4
-          x: (x - 0.5) * 15, // Reduced from 30 to 15
-          y: (y - 0.5) * 8, // Reduced from 15 to 8
-          duration: 1.0, // Increased duration for smoother animation
-          ease: "power1.out" // Smoother easing
-        });
-      }
-    };
-
-    // Reset 3D position when mouse leaves - smoother
-    const handleMouseLeave = () => {
-      if (!isLowPerformance) {
-        gsap.to(splineRef.current, {
-          rotationY: 0,
-          rotationX: 0,
-          x: 0,
-          y: 0,
-          duration: 1.5, // Slower return for smoothness
+          rotationY: (x - 0.5) * 8 * rotationMultiplier,
+          rotationX: (y - 0.5) * -4 * rotationMultiplier,
+          x: (x - 0.5) * 15 * moveMultiplier,
+          y: (y - 0.5) * 8 * moveMultiplier,
+          duration: isMobile ? 0.8 : 1.0,
           ease: "power1.out"
         });
       }
     };
 
-    // Add mouse tracking
-    if (!isLowPerformance) {
-      heroRef.current?.addEventListener('mousemove', handleMouseMove);
-      heroRef.current?.addEventListener('mouseleave', handleMouseLeave);
+    // Touch tracking for mobile devices
+    const handleTouchMove = (e: TouchEvent) => {
+      if (heroRef.current && e.touches.length === 1) {
+        e.preventDefault(); // Prevent scrolling while interacting
+        const touch = e.touches[0];
+        const rect = heroRef.current.getBoundingClientRect();
+        const x = (touch.clientX - rect.left) / rect.width;
+        const y = (touch.clientY - rect.top) / rect.height;
+        
+        setMousePosition({ x, y });
+        
+        // Mobile-optimized movement
+        gsap.to(splineRef.current, {
+          rotationY: (x - 0.5) * 6, // Gentler rotation for touch
+          rotationX: (y - 0.5) * -3,
+          x: (x - 0.5) * 12, // Reduced movement for touch
+          y: (y - 0.5) * 6,
+          duration: 0.6, // Faster response for touch
+          ease: "power1.out"
+        });
+      }
+    };
+
+    // Reset 3D position when interaction ends
+    const handleInteractionEnd = () => {
+      gsap.to(splineRef.current, {
+        rotationY: 0,
+        rotationX: 0,
+        x: 0,
+        y: 0,
+        duration: 1.5,
+        ease: "power1.out"
+      });
+    };
+
+    // Add both mouse and touch event listeners
+    const heroElement = heroRef.current;
+    if (heroElement) {
+      // Mouse events for desktop
+      heroElement.addEventListener('mousemove', handleMouseMove);
+      heroElement.addEventListener('mouseleave', handleInteractionEnd);
+      
+      // Touch events for mobile
+      heroElement.addEventListener('touchmove', handleTouchMove, { passive: false });
+      heroElement.addEventListener('touchend', handleInteractionEnd);
+      heroElement.addEventListener('touchcancel', handleInteractionEnd);
     }
 
     const tl = gsap.timeline({ delay: 0.1 });
@@ -141,7 +174,10 @@ export const HeroSection = () => {
 
     return () => {
       heroRef.current?.removeEventListener('mousemove', handleMouseMove);
-      heroRef.current?.removeEventListener('mouseleave', handleMouseLeave);
+      heroRef.current?.removeEventListener('mouseleave', handleInteractionEnd);
+      heroRef.current?.removeEventListener('touchmove', handleTouchMove);
+      heroRef.current?.removeEventListener('touchend', handleInteractionEnd);
+      heroRef.current?.removeEventListener('touchcancel', handleInteractionEnd);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [isLowPerformance]);

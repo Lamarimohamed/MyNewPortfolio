@@ -424,21 +424,43 @@
     pointer-events: none;
   }
 
-  /* Mobile optimizations for 3D content - more visible */
+  /* Mobile optimizations for 3D content - more visible and interactive */
   @media (max-width: 768px) {
     .spline-container {
       opacity: 0.25 !important; /* Increased from 0.2 to 0.25 */
       transform: scale(0.9) translateZ(0); /* Increased from 0.85 to 0.9 */
-      pointer-events: none; /* Disable on mobile for better performance */
+      pointer-events: auto; /* Enable touch interaction on mobile */
     }
     
     .spline-container iframe {
       transform: scale(0.9) translateZ(0);
-      pointer-events: none;
+      pointer-events: auto; /* Enable touch interaction on iframe */
     }
 
     .spline-container.low-performance {
       opacity: 0.15 !important; /* Increased from 0.1 to 0.15 */
+      pointer-events: none; /* Only disable on very slow devices */
+    }
+
+    /* Improve touch responsiveness */
+    body {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    /* Prevent text selection during 3D interaction */
+    .spline-container * {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
   }
 
