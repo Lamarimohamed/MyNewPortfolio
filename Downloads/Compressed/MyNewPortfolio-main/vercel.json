@@ -16,6 +16,18 @@
       }
     },
     {
+      "src": "/lovable-uploads/(.*)",
+      "headers": {
+        "cache-control": "max-age=86400"
+      }
+    },
+    {
+      "src": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|webp|css|js))",
+      "headers": {
+        "cache-control": "max-age=86400"
+      }
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
