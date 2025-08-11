@@ -223,23 +223,24 @@ export const HeroSection = () => {
 
   const handleDownloadCV = () => {
     try {
-      // Create download link for CV
+      // Direct download approach - force download of the PDF
       const link = document.createElement('a');
-      link.href = '/Mohamed_Lamari_CV.pdf'; // Update this path to match your actual CV file
+      link.href = '/Mohamed_Lamari_CV.pdf';
       link.download = 'Mohamed_Lamari_CV.pdf';
-      link.setAttribute('aria-label', 'Download Mohamed Lamari CV');
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+      link.style.display = 'none';
       
-      // Add link to DOM, click it, then remove it
+      // Add to DOM, click, and remove
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       
-      // Optional: Show success message
       console.log('CV download initiated');
     } catch (error) {
       console.error('Error downloading CV:', error);
-      // Fallback: Open in new tab if download fails
-      window.open('/Mohamed_Lamari_CV.pdf', '_blank');
+      // Fallback: Open PDF in new tab
+      window.open('/Mohamed_Lamari_CV.pdf', '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -319,7 +320,7 @@ export const HeroSection = () => {
               className="group-hover:scale-110 transition-transform duration-300" 
               aria-hidden="true"
             />
-            <span>Download CV</span>
+            <span>Download My CV</span>
           </button>
         </div>
       </div>
