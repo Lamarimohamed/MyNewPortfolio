@@ -11,7 +11,6 @@ export const HeroSection = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const splineRef = useRef<HTMLDivElement>(null);
-  const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
   const [isLowPerformance, setIsLowPerformance] = useState(false);
 
   useEffect(() => {
@@ -25,11 +24,6 @@ export const HeroSection = () => {
     };
 
     checkPerformance();
-
-    // Delay Spline loading for better initial performance
-    const splineTimer = setTimeout(() => {
-      setShouldLoadSpline(true);
-    }, isLowPerformance ? 2000 : 1000);
 
     const tl = gsap.timeline({ delay: 0.1 }); // Faster start
 
@@ -107,7 +101,6 @@ export const HeroSection = () => {
     }
 
     return () => {
-      clearTimeout(splineTimer);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [isLowPerformance]);
@@ -151,32 +144,21 @@ export const HeroSection = () => {
       id="hero"
       aria-labelledby="hero-heading"
     >
-      {/* Spline 3D Background - Always show but optimized */}
-      {shouldLoadSpline && (
-        <div ref={splineRef} className={`spline-container ${isLowPerformance ? 'low-performance' : ''}`} aria-hidden="true">
-          <iframe 
-            src='https://my.spline.design/rememberallrobot-Ahb9oqDTIyBujosHCqlDj0oz/' 
-            frameBorder='0' 
-            width='100%' 
-            height='100%'
-            className="w-full h-full"
-            title="3D Background Animation"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            sandbox="allow-scripts allow-same-origin"
-            style={{ willChange: 'transform' }}
-          />
-        </div>
-      )}
-
-      {/* Loading placeholder while 3D loads */}
-      {!shouldLoadSpline && (
-        <div className="absolute inset-0 opacity-20" aria-hidden="true">
-          <div className="absolute inset-0 bg-gradient-to-br from-neon-blue/10 via-transparent to-neon-purple/10"></div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-blue/5 rounded-full blur-3xl floating-slow"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-neon-purple/5 rounded-full blur-3xl floating-slow" style={{ animationDelay: '2s' }}></div>
-        </div>
-      )}
+      {/* Spline 3D Background - Always visible immediately */}
+      <div ref={splineRef} className={`spline-container ${isLowPerformance ? 'low-performance' : ''}`} aria-hidden="true">
+        <iframe 
+          src='https://my.spline.design/rememberallrobot-Ahb9oqDTIyBujosHCqlDj0oz/' 
+          frameBorder='0' 
+          width='100%' 
+          height='100%'
+          className="w-full h-full"
+          title="3D Background Animation"
+          loading="eager"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          sandbox="allow-scripts allow-same-origin"
+          style={{ willChange: 'transform' }}
+        />
+      </div>
 
       {/* Floating Neon Orbs - Optimized for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
