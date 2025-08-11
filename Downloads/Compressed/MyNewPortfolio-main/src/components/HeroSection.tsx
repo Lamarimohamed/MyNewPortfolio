@@ -151,9 +151,9 @@ export const HeroSection = () => {
       id="hero"
       aria-labelledby="hero-heading"
     >
-      {/* Spline 3D Background */}
-      {shouldLoadSpline && !isLowPerformance && (
-        <div ref={splineRef} className="spline-container" aria-hidden="true">
+      {/* Spline 3D Background - Always show but optimized */}
+      {shouldLoadSpline && (
+        <div ref={splineRef} className={`spline-container ${isLowPerformance ? 'low-performance' : ''}`} aria-hidden="true">
           <iframe 
             src='https://my.spline.design/rememberallrobot-Ahb9oqDTIyBujosHCqlDj0oz/' 
             frameBorder='0' 
@@ -169,12 +169,12 @@ export const HeroSection = () => {
         </div>
       )}
 
-      {/* Fallback background for low-performance devices */}
-      {(!shouldLoadSpline || isLowPerformance) && (
+      {/* Loading placeholder while 3D loads */}
+      {!shouldLoadSpline && (
         <div className="absolute inset-0 opacity-20" aria-hidden="true">
           <div className="absolute inset-0 bg-gradient-to-br from-neon-blue/10 via-transparent to-neon-purple/10"></div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-blue/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-neon-purple/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-blue/5 rounded-full blur-3xl floating-slow"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-neon-purple/5 rounded-full blur-3xl floating-slow" style={{ animationDelay: '2s' }}></div>
         </div>
       )}
 

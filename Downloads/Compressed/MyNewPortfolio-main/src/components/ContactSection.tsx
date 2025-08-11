@@ -130,10 +130,10 @@ export const ContactSection = () => {
             {/* Name Input */}
             <div className="group">
               <label htmlFor="name" className="block text-chrome-light text-sm font-medium mb-2">
-                Your Name <span className="text-neon-pink">*</span>
+                Full Name <span className="text-neon-pink">*</span>
               </label>
               <div className="relative">
-                <i className="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-chrome-medium" aria-hidden="true"></i>
+                <i className="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-chrome-medium" aria-hidden="true"></i>
                 <input
                   type="text"
                   id="name"
@@ -142,7 +142,7 @@ export const ContactSection = () => {
                   onChange={handleInputChange}
                   required
                   className="w-full pl-12 pr-4 py-3 rounded-xl glass-card border border-chrome-border/30 bg-chrome-dark/20 text-foreground placeholder-chrome-medium focus:outline-none focus:border-neon-blue focus:glow transition-all duration-300"
-                  placeholder="Enter your name"
+                  placeholder="John Doe"
                   aria-describedby="name-error"
                 />
               </div>
@@ -154,7 +154,7 @@ export const ContactSection = () => {
                 Email Address <span className="text-neon-pink">*</span>
               </label>
               <div className="relative">
-                <i className="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-chrome-medium" aria-hidden="true"></i>
+                <i className="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-chrome-medium" aria-hidden="true"></i>
                 <input
                   type="email"
                   id="email"

@@ -19,15 +19,22 @@ export const AboutSection = () => {
     // Ensure sections are immediately visible and animated smoothly
     const tl = gsap.timeline({ delay: 0.1 });
 
-    // Pre-set elements to be visible but with initial animation
+    // Pre-set elements to be visible but with initial animation states
     gsap.set([imageRef.current, contentRef.current, iconsRef.current], {
       opacity: 1,
       visibility: 'visible'
     });
 
+    // Ensure image is immediately visible, then animate
+    gsap.set(imageRef.current, {
+      opacity: 1,
+      visibility: 'visible',
+      x: 0
+    });
+
     // Smooth entrance animations without delays
     tl.fromTo(imageRef.current,
-      { opacity: 0, x: -30, filter: 'blur(3px)' },
+      { opacity: 0.3, x: -20, filter: 'blur(2px)' },
       { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }
     )
     .fromTo(contentRef.current,
