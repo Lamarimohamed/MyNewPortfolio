@@ -12,6 +12,7 @@ export const HeroSection = () => {
   const buttonsRef = useRef<HTMLDivElement>(null);
   const splineRef = useRef<HTMLDivElement>(null);
   const [isLowPerformance, setIsLowPerformance] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     // Performance detection
@@ -25,7 +26,48 @@ export const HeroSection = () => {
 
     checkPerformance();
 
-    const tl = gsap.timeline({ delay: 0.1 }); // Faster start
+    // Mouse tracking for 3D interaction
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current && !isLowPerformance) {
+        const rect = heroRef.current.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        
+        setMousePosition({ x, y });
+        
+        // Apply smooth 3D transformation based on mouse position
+        gsap.to(splineRef.current, {
+          rotationY: (x - 0.5) * 15, // Increased rotation for better effect
+          rotationX: (y - 0.5) * -8, // Increased rotation for better effect
+          x: (x - 0.5) * 30, // Increased movement
+          y: (y - 0.5) * 15, // Increased movement
+          duration: 0.6,
+          ease: "power2.out"
+        });
+      }
+    };
+
+    // Reset 3D position when mouse leaves
+    const handleMouseLeave = () => {
+      if (!isLowPerformance) {
+        gsap.to(splineRef.current, {
+          rotationY: 0,
+          rotationX: 0,
+          x: 0,
+          y: 0,
+          duration: 1.2,
+          ease: "power2.out"
+        });
+      }
+    };
+
+    // Add mouse tracking
+    if (!isLowPerformance) {
+      heroRef.current?.addEventListener('mousemove', handleMouseMove);
+      heroRef.current?.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    const tl = gsap.timeline({ delay: 0.1 });
 
     // Initial setup - ensure elements are visible initially
     gsap.set([headlineRef.current, subtitleRef.current, buttonsRef.current, splineRef.current], {
@@ -36,13 +78,13 @@ export const HeroSection = () => {
     // Faster entrance animations with reduced complexity
     tl.fromTo(headlineRef.current, {
       opacity: 0,
-      y: 20, // Reduced distance for faster animation
-      filter: 'blur(3px)' // Reduced blur for faster effect
+      y: 20,
+      filter: 'blur(3px)'
     }, {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
-      duration: 0.4, // Faster duration
+      duration: 0.4,
       ease: 'power2.out'
     })
     .fromTo(subtitleRef.current, {
@@ -53,9 +95,9 @@ export const HeroSection = () => {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
-      duration: 0.3, // Faster duration
+      duration: 0.3,
       ease: 'power2.out'
-    }, '-=0.3') // Earlier overlap
+    }, '-=0.3')
     .fromTo(buttonsRef.current, {
       opacity: 0,
       y: 20,
@@ -64,43 +106,42 @@ export const HeroSection = () => {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
-      duration: 0.3, // Faster duration
+      duration: 0.3,
       ease: 'power2.out'
-    }, '-=0.2') // Earlier overlap
+    }, '-=0.2')
     .fromTo(splineRef.current, {
       opacity: 0,
-      x: 30, // Reduced distance for faster animation
+      x: 30,
       filter: 'blur(5px)'
     }, {
-      opacity: isLowPerformance ? 0.15 : 0.3, // Lower opacity on low-performance devices
+      opacity: isLowPerformance ? 0.15 : 0.3,
       x: 0,
       filter: 'blur(0px)',
-      duration: 0.5, // Faster duration
+      duration: 0.5,
       ease: 'power2.out'
     }, '-=0.4');
 
-    // Optimized parallax scroll effect - only on high-performance devices
+    // Optimized parallax scroll effect
     if (!isLowPerformance) {
       ScrollTrigger.create({
         trigger: heroRef.current,
         start: 'top top',
         end: 'bottom top',
-        scrub: 2, // Increased for smoother performance
+        scrub: 1,
         onUpdate: (self) => {
           const progress = self.progress;
-          // Use requestAnimationFrame for smoother performance
-          requestAnimationFrame(() => {
-            gsap.to(splineRef.current, {
-              y: progress * 20, // Reduced movement for smoother effect
-              duration: 0.1, // Faster updates
-              ease: 'none'
-            });
+          gsap.to(splineRef.current, {
+            y: progress * 15,
+            duration: 0.1,
+            ease: 'none'
           });
         }
       });
     }
 
     return () => {
+      heroRef.current?.removeEventListener('mousemove', handleMouseMove);
+      heroRef.current?.removeEventListener('mouseleave', handleMouseLeave);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [isLowPerformance]);

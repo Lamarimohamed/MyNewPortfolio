@@ -390,7 +390,7 @@
     background: var(--gradient-background);
   }
 
-  /* Spline Container - Optimized for performance */
+  /* Spline Container - Optimized for performance and mouse interaction */
   .spline-container {
     @apply absolute inset-0;
     opacity: 0.3;
@@ -400,7 +400,8 @@
     backface-visibility: hidden;
     perspective: 1000px;
     contain: layout style paint;
-    pointer-events: none;
+    pointer-events: auto; /* Enable mouse interaction */
+    transform-style: preserve-3d;
   }
 
   .spline-container iframe {
@@ -408,16 +409,19 @@
     transform: translateZ(0);
     backface-visibility: hidden;
     contain: layout style paint;
+    pointer-events: auto; /* Enable mouse interaction on iframe */
   }
 
-  /* Low performance version - lighter but still visible */
+  /* Low performance version - lighter but still interactive */
   .spline-container.low-performance {
     opacity: 0.15;
     transform: scale(0.9) translateZ(0);
+    pointer-events: none; /* Disable interaction on low performance */
   }
 
   .spline-container.low-performance iframe {
     transform: scale(0.9) translateZ(0);
+    pointer-events: none;
   }
 
   /* Mobile optimizations for 3D content */
@@ -425,10 +429,12 @@
     .spline-container {
       opacity: 0.2 !important;
       transform: scale(0.85) translateZ(0);
+      pointer-events: none; /* Disable on mobile for better performance */
     }
     
     .spline-container iframe {
       transform: scale(0.85) translateZ(0);
+      pointer-events: none;
     }
 
     .spline-container.low-performance {
@@ -441,6 +447,7 @@
     .spline-container {
       opacity: 0.1 !important;
       transform: none !important;
+      pointer-events: none !important;
     }
   }
 
