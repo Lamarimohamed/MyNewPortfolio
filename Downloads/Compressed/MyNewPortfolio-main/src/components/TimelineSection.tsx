@@ -17,52 +17,67 @@ export const TimelineSection = () => {
       company: 'QOTRA',
       period: '03/2025 - Present',
       location: 'Remote',
-      description: 'Assisted in designing user interfaces and improving user experience for web and mobile applications',
+      description: 'Assisted in designing user interfaces and improving user experience for web and mobile applications. Focused on creating intuitive designs that enhance user engagement and accessibility.',
       technologies: ['UX Research', 'XD', 'Figma', 'UX', 'UI'],
-      achievements: ['Created wireframes, mockups, and interactive prototypes','Collaborated with developers to ensure design consistency and usability across platforms']
+      achievements: [
+        'Created wireframes, mockups, and interactive prototypes for multiple projects',
+        'Collaborated with developers to ensure design consistency and usability across platforms'
+      ]
     },
     {
       role: 'Frontend Developer',
       company: 'Freelance',
       period: '2023 - Present',
       location: 'Remote',
-      description: 'Developed responsive web applications and collaborated with design teams to create exceptional user experiences. Mentored junior developers.',
-      technologies: ['React', 'TypeScript', 'Bootstrap', 'Next.js', 'javascript'],
-      achievements: [ 'Reduced bundle size by 30%', 'Implemented accessibility improvements']
+      description: 'Developed responsive web applications and collaborated with design teams to create exceptional user experiences. Mentored junior developers and implemented modern development practices.',
+      technologies: ['React', 'TypeScript', 'Bootstrap', 'Next.js', 'JavaScript'],
+      achievements: [
+        'Reduced bundle size by 30% through code optimization',
+        'Implemented accessibility improvements across multiple projects'
+      ]
     },
     {
       role: 'System Information Intern',
       company: 'Ministry of Post and Telecommunications',
       period: '12/2024 - 03/2025',
       location: 'Algiers, Algeria',
-      description: 'Collaborated with senior developers and received mentorship that helped shape the direction of my graduation project (PFE) focused on digital financial services',
-      technologies: ['Flutter', 'React', 'Express', 'Progressql', 'Git'],
-      achievements: ['Gained insights into secure digital systems, which sparked a strong interest in cryptography and led me to explore Crypthage-related concepts and technologies.']
+      description: 'Collaborated with senior developers and received mentorship that helped shape the direction of my graduation project (PFE) focused on digital financial services and secure payment systems.',
+      technologies: ['Flutter', 'React', 'Express', 'PostgreSQL', 'Git'],
+      achievements: [
+        'Gained insights into secure digital systems, which sparked a strong interest in cryptography',
+        'Explored cryptography-related concepts and technologies for financial applications'
+      ]
     },
     {
       role: 'Graphic & Social Media Designer',
       company: 'Freelance',
       period: '2022 - 2023',
       location: 'Remote',
-      description: 'Designed engaging visuals for social media platforms, including posts, stories, banners, and ads.',
-      technologies: [ 'Editing', 'PS', 'Canva', 'Adobe'],
-      achievements: ['Ensured brand consistency across all designs while using tools like Photoshop, Illustrator,']
+      description: 'Designed engaging visuals for social media platforms, including posts, stories, banners, and ads. Maintained brand consistency across various digital touchpoints.',
+      technologies: ['Editing', 'Photoshop', 'Canva', 'Adobe Creative Suite'],
+      achievements: [
+        'Ensured brand consistency across all designs using tools like Photoshop and Illustrator',
+        'Created compelling visual content that increased engagement rates'
+      ]
     },
     {
       role: 'Media Buyer Expert',
       company: 'Freelance',
       period: '2021 - 2023',
       location: 'Remote',
-      description: 'Planned, launched, and optimized paid advertising campaigns across platforms like Facebook, Instagram, and Google Ads.',
-      technologies: ['CTR', 'ROI', 'GOOGLE ADS', 'CPC'],
-      achievements: ['Collaborated with design and content teams to create effective ad creatives and drive audience engagement.']
+      description: 'Planned, launched, and optimized paid advertising campaigns across platforms like Facebook, Instagram, and Google Ads. Analyzed performance metrics to maximize ROI.',
+      technologies: ['CTR Optimization', 'ROI Analysis', 'Google Ads', 'CPC Management'],
+      achievements: [
+        'Collaborated with design and content teams to create effective ad creatives',
+        'Successfully managed campaigns that drove significant audience engagement and conversions'
+      ]
     }
   ];
 
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1024); // Changed to lg breakpoint for better layout
     };
     
     checkMobile();
@@ -72,18 +87,7 @@ export const TimelineSection = () => {
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      // On mobile, ensure title is visible immediately
-      if (titleRef.current) {
-        gsap.set(titleRef.current, { opacity: 1, y: 0, filter: 'blur(0px)' });
-      }
-      if (timelineRef.current) {
-        gsap.set(timelineRef.current.children, { opacity: 1, x: 0, filter: 'blur(0px)' });
-      }
-      return;
-    }
-
-    // Desktop/tablet animations - ensure immediate visibility
+    // Ensure immediate visibility for all screen sizes
     const tl = gsap.timeline({ delay: 0.1 });
 
     // Pre-set elements to be visible
@@ -92,20 +96,37 @@ export const TimelineSection = () => {
       visibility: 'visible'
     });
 
-    // Smooth entrance animations without delays
-    tl.fromTo(titleRef.current,
-      { opacity: 0, y: 30, filter: 'blur(5px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out' }
-    );
-
-    // Timeline items animation - faster
-    const timelineItems = timelineRef.current?.children;
-    if (timelineItems) {
-      tl.fromTo(timelineItems,
-        { opacity: 0, x: (index) => index % 2 === 0 ? -50 : 50, filter: 'blur(5px)' },
-        { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.4, stagger: 0.08, ease: 'power2.out' },
-        '-=0.2'
+    if (!isMobile) {
+      // Desktop/tablet animations
+      tl.fromTo(titleRef.current,
+        { opacity: 0, y: 30, filter: 'blur(5px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out' }
       );
+
+      // Timeline items animation - faster
+      const timelineItems = timelineRef.current?.children;
+      if (timelineItems) {
+        tl.fromTo(timelineItems,
+          { opacity: 0, x: (index) => index % 2 === 0 ? -50 : 50, filter: 'blur(5px)' },
+          { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.4, stagger: 0.08, ease: 'power2.out' },
+          '-=0.2'
+        );
+      }
+    } else {
+      // Mobile: simple fade-in
+      tl.fromTo(titleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+      );
+
+      const mobileItems = timelineRef.current?.children;
+      if (mobileItems) {
+        tl.fromTo(mobileItems,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' },
+          '-=0.2'
+        );
+      }
     }
 
     return () => {
@@ -116,38 +137,42 @@ export const TimelineSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="min-h-screen py-20 px-6 bg-background"
+      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 bg-background"
       id="timeline"
       aria-labelledby="timeline-heading"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h2 
           ref={titleRef}
           id="timeline-heading"
-          className="text-4xl md:text-5xl font-bold text-center mb-16"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 sm:mb-16"
         >
           Professional <span className="glow-text">Journey</span>
         </h2>
 
         <div ref={timelineRef} className="relative">
           {isMobile ? (
-            // Mobile Layout: Centered cards like projects section
-            <div className="max-w-sm mx-auto space-y-8 px-4" role="list" aria-label="Professional experience timeline">
+            // Mobile/Tablet Layout: Full-width cards with better spacing
+            <div className="space-y-8" role="list" aria-label="Professional experience timeline">
               {experiences.map((exp, index) => (
-                <article key={index} className="glass-card p-6 group hover:scale-105 hover:shadow-2xl transition-all duration-500 w-full" role="listitem">
+                <article 
+                  key={index} 
+                  className="glass-card p-4 sm:p-6 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full max-w-none" 
+                  role="listitem"
+                >
                   {/* Header */}
                   <div className="mb-4">
-                    <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors">
+                    <h3 className="text-lg sm:text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
                       {exp.role}
                     </h3>
-                    <div className="flex items-center gap-2 text-neon-blue font-medium mt-1">
+                    <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
                       <Briefcase size={16} aria-hidden="true" />
-                      <span>{exp.company}</span>
+                      <span className="text-sm sm:text-base">{exp.company}</span>
                     </div>
                   </div>
 
                   {/* Meta Info */}
-                  <div className="flex flex-col gap-2 mb-4 text-chrome-medium text-sm">
+                  <div className="flex flex-col sm:flex-row sm:gap-6 gap-2 mb-4 text-chrome-medium text-sm">
                     <div className="flex items-center gap-2">
                       <Calendar size={14} aria-hidden="true" />
                       <span>{exp.period}</span>
@@ -159,19 +184,19 @@ export const TimelineSection = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-chrome-medium text-sm leading-relaxed mb-4">
+                  <p className="text-chrome-medium text-sm sm:text-base leading-relaxed mb-4">
                     {exp.description}
                   </p>
 
                   {/* Achievements */}
                   {exp.achievements && (
                     <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-chrome-light mb-2">Key Achievements:</h4>
-                      <ul className="space-y-1">
+                      <h4 className="text-sm font-semibold text-chrome-light mb-3">Key Achievements:</h4>
+                      <ul className="space-y-2">
                         {exp.achievements.map((achievement, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-chrome-medium text-xs">
-                            <ArrowRight size={12} className="text-neon-blue" aria-hidden="true" />
-                            <span>{achievement}</span>
+                          <li key={idx} className="flex items-start gap-2 text-chrome-medium text-sm">
+                            <ArrowRight size={14} className="text-neon-blue mt-0.5 flex-shrink-0" aria-hidden="true" />
+                            <span className="leading-relaxed">{achievement}</span>
                           </li>
                         ))}
                       </ul>
@@ -183,7 +208,7 @@ export const TimelineSection = () => {
                     {exp.technologies.map((tech, techIndex) => (
                       <span 
                         key={techIndex}
-                        className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20 whitespace-nowrap"
                       >
                         {tech}
                       </span>
@@ -193,7 +218,7 @@ export const TimelineSection = () => {
               ))}
             </div>
           ) : (
-            // Desktop/Tablet Layout: Animated timeline
+            // Desktop Layout: Traditional timeline with better responsive handling
             <>
               {/* Timeline Line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan" aria-hidden="true"></div>
@@ -215,10 +240,10 @@ export const TimelineSection = () => {
                       <article className="glass-card p-6 group hover:scale-105 transition-all duration-300">
                         {/* Header */}
                         <div className="mb-4">
-                          <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors">
+                          <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
                             {exp.role}
                           </h3>
-                          <div className="flex items-center gap-2 text-neon-blue font-medium mt-1">
+                          <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
                             <Briefcase size={16} aria-hidden="true" />
                             <span>{exp.company}</span>
                           </div>
@@ -244,12 +269,12 @@ export const TimelineSection = () => {
                         {/* Achievements */}
                         {exp.achievements && (
                           <div className="mb-4">
-                            <h4 className="text-sm font-semibold text-chrome-light mb-2">Key Achievements:</h4>
-                            <ul className="space-y-1">
+                            <h4 className="text-sm font-semibold text-chrome-light mb-3">Key Achievements:</h4>
+                            <ul className="space-y-2">
                               {exp.achievements.map((achievement, idx) => (
-                                <li key={idx} className="flex items-center gap-2 text-chrome-medium text-xs">
-                                  <ArrowRight size={12} className="text-neon-blue" aria-hidden="true" />
-                                  <span>{achievement}</span>
+                                <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
+                                  <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
+                                  <span className="leading-relaxed">{achievement}</span>
                                 </li>
                               ))}
                             </ul>

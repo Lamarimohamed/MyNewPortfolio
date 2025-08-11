@@ -591,3 +591,49 @@
     backface-visibility: hidden;
   }
 }
+
+  /* Timeline section improvements */
+  #timeline .glass-card {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  #timeline .glass-card p,
+  #timeline .glass-card li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+  }
+
+  /* Ensure timeline cards don't overflow on small screens */
+  @media (max-width: 1023px) {
+    #timeline .glass-card {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    
+    #timeline h3 {
+      font-size: 1.125rem !important;
+      line-height: 1.4 !important;
+    }
+    
+    #timeline .glass-card p {
+      font-size: 0.875rem !important;
+      line-height: 1.6 !important;
+    }
+  }
+
+  /* Better spacing for timeline achievements */
+  #timeline ul li {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  #timeline .flex-shrink-0 {
+    flex-shrink: 0 !important;
+    margin-top: 0.125rem;
+  }
