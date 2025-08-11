@@ -16,6 +16,19 @@
       }
     },
     {
+      "src": "/(.+\\.(pdf|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot|css|js))$",
+      "headers": {
+        "cache-control": "max-age=86400"
+      }
+    },
+    {
+      "src": "/Mohamed_Lamari_CV.pdf",
+      "headers": {
+        "content-type": "application/pdf",
+        "content-disposition": "attachment; filename=\"Mohamed_Lamari_CV.pdf\""
+      }
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }

@@ -221,26 +221,49 @@ export const HeroSection = () => {
     }
   };
 
-  const handleDownloadCV = () => {
+  const handleDownloadCV = async () => {
     try {
-      // Direct download approach - force download of the PDF
+      // Fetch the PDF file as a blob to ensure proper download
+      const response = await fetch('/Mohamed_Lamari_CV.pdf');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch CV file');
+      }
+      
+      const blob = await response.blob();
+      
+      // Create object URL for the blob
+      const url = window.URL.createObjectURL(blob);
+      
+      // Create download link
       const link = document.createElement('a');
-      link.href = '/Mohamed_Lamari_CV.pdf';
+      link.href = url;
       link.download = 'Mohamed_Lamari_CV.pdf';
-      link.setAttribute('target', '_blank');
-      link.setAttribute('rel', 'noopener noreferrer');
       link.style.display = 'none';
       
-      // Add to DOM, click, and remove
+      // Add to DOM, click, and clean up
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       
-      console.log('CV download initiated');
+      // Clean up the object URL
+      window.URL.revokeObjectURL(url);
+      
+      console.log('CV download initiated successfully');
     } catch (error) {
       console.error('Error downloading CV:', error);
-      // Fallback: Open PDF in new tab
-      window.open('/Mohamed_Lamari_CV.pdf', '_blank', 'noopener,noreferrer');
+      // Fallback: Try direct window.open approach
+      try {
+        const link = document.createElement('a');
+        link.href = '/Mohamed_Lamari_CV.pdf';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.download = 'Mohamed_Lamari_CV.pdf';
+        link.click();
+      } catch (fallbackError) {
+        // Last resort: open in new tab
+        window.open('/Mohamed_Lamari_CV.pdf', '_blank', 'noopener,noreferrer');
+      }
     }
   };
 
