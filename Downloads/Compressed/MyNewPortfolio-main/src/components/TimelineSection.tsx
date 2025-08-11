@@ -74,7 +74,9 @@ export const TimelineSection = () => {
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const isMobileDevice = window.innerWidth < 768;
+      setIsMobile(isMobileDevice);
+      console.log('Mobile detection:', isMobileDevice, 'Width:', window.innerWidth);
     };
     
     checkMobile();
@@ -131,44 +133,51 @@ export const TimelineSection = () => {
         </h2>
 
         <div ref={timelineRef} className="relative">
+          {/* Debug indicator */}
+          {isMobile && (
+            <div className="mb-4 text-center text-neon-blue text-sm">
+              Mobile Timeline View ({experiences.length} experiences)
+            </div>
+          )}
+          
           {isMobile ? (
-            // Mobile Layout: Single column with timeline dots - FIXED LAYOUT
-            <div className="relative" role="list" aria-label="Professional experience timeline">
+            // Mobile Layout: Simplified timeline with visible cards
+            <div className="space-y-6 px-4" role="list" aria-label="Professional experience timeline">
               {/* Mobile Timeline Line */}
-              <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan" aria-hidden="true"></div>
+              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan opacity-50" aria-hidden="true"></div>
               
               {experiences.map((exp, index) => (
-                <div key={index} className="relative mb-8 pl-16" role="listitem">
+                <div key={index} className="relative flex items-start gap-4" role="listitem">
                   {/* Timeline Dot */}
-                  <div className="absolute left-4 top-6 w-3 h-3 rounded-full bg-gradient-primary pulse-glow z-10" aria-hidden="true"></div>
+                  <div className="w-4 h-4 rounded-full bg-gradient-primary pulse-glow z-10 mt-6 flex-shrink-0" aria-hidden="true"></div>
                   
-                  {/* Content Card - Full width with proper spacing */}
-                  <article className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full">
+                  {/* Content Card */}
+                  <article className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 flex-1 min-w-0">
                     {/* Header */}
                     <div className="mb-4">
-                      <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight break-words">
+                      <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
                         {exp.role}
                       </h3>
-                      <div className="flex items-center gap-2 text-neon-blue font-medium mt-2 flex-wrap">
+                      <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
                         <Briefcase size={16} aria-hidden="true" />
-                        <span className="text-sm break-words">{exp.company}</span>
+                        <span className="text-sm">{exp.company}</span>
                       </div>
                     </div>
 
                     {/* Meta Info */}
                     <div className="flex flex-col gap-2 mb-4 text-chrome-medium text-sm">
-                      <div className="flex items-center gap-2 flex-wrap">
+                      <div className="flex items-center gap-2">
                         <Calendar size={14} aria-hidden="true" />
-                        <span className="break-words">{exp.period}</span>
+                        <span>{exp.period}</span>
                       </div>
-                      <div className="flex items-center gap-2 flex-wrap">
+                      <div className="flex items-center gap-2">
                         <MapPin size={14} aria-hidden="true" />
-                        <span className="break-words">{exp.location}</span>
+                        <span>{exp.location}</span>
                       </div>
                     </div>
 
                     {/* Description */}
-                    <p className="text-chrome-medium text-sm leading-relaxed mb-4 break-words overflow-wrap-anywhere">
+                    <p className="text-chrome-medium text-sm leading-relaxed mb-4">
                       {exp.description}
                     </p>
 
@@ -180,7 +189,7 @@ export const TimelineSection = () => {
                           {exp.achievements.map((achievement, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
                               <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
-                              <span className="leading-relaxed break-words overflow-wrap-anywhere flex-1">{achievement}</span>
+                              <span className="leading-relaxed">{achievement}</span>
                             </li>
                           ))}
                         </ul>
@@ -192,7 +201,7 @@ export const TimelineSection = () => {
                       {exp.technologies.map((tech, techIndex) => (
                         <span 
                           key={techIndex}
-                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20 break-words"
+                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
                         >
                           {tech}
                         </span>
