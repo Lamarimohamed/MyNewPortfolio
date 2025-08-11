@@ -116,7 +116,7 @@ export const TimelineSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="min-h-screen py-20 px-4 md:px-6 bg-background"
+      className="min-h-screen py-20 px-6 bg-background"
       id="timeline"
       aria-labelledby="timeline-heading"
     >
@@ -124,54 +124,54 @@ export const TimelineSection = () => {
         <h2 
           ref={titleRef}
           id="timeline-heading"
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 md:mb-16"
+          className="text-4xl md:text-5xl font-bold text-center mb-16"
         >
           Professional <span className="glow-text">Journey</span>
         </h2>
 
         <div ref={timelineRef} className="relative">
           {isMobile ? (
-            // Mobile Layout: Properly centered and full-width
-            <div className="w-full max-w-md mx-auto space-y-6" role="list" aria-label="Professional experience timeline">
+            // Mobile Layout: Centered cards like projects section
+            <div className="max-w-sm mx-auto space-y-8 px-4" role="list" aria-label="Professional experience timeline">
               {experiences.map((exp, index) => (
-                <article key={index} className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full" role="listitem">
+                <article key={index} className="glass-card p-6 group hover:scale-105 hover:shadow-2xl transition-all duration-500 w-full" role="listitem">
                   {/* Header */}
-                  <div className="mb-3">
-                    <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors">
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors">
                       {exp.role}
                     </h3>
-                    <div className="flex items-center gap-2 text-neon-blue font-medium mt-1 text-sm">
-                      <Briefcase size={14} aria-hidden="true" />
+                    <div className="flex items-center gap-2 text-neon-blue font-medium mt-1">
+                      <Briefcase size={16} aria-hidden="true" />
                       <span>{exp.company}</span>
                     </div>
                   </div>
 
                   {/* Meta Info */}
-                  <div className="flex flex-col gap-1 mb-3 text-chrome-medium text-xs">
+                  <div className="flex flex-col gap-2 mb-4 text-chrome-medium text-sm">
                     <div className="flex items-center gap-2">
-                      <Calendar size={12} aria-hidden="true" />
+                      <Calendar size={14} aria-hidden="true" />
                       <span>{exp.period}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPin size={12} aria-hidden="true" />
+                      <MapPin size={14} aria-hidden="true" />
                       <span>{exp.location}</span>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-chrome-medium text-xs leading-relaxed mb-3">
+                  <p className="text-chrome-medium text-sm leading-relaxed mb-4">
                     {exp.description}
                   </p>
 
                   {/* Achievements */}
                   {exp.achievements && (
-                    <div className="mb-3">
-                      <h4 className="text-xs font-semibold text-chrome-light mb-1">Key Achievements:</h4>
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-chrome-light mb-2">Key Achievements:</h4>
                       <ul className="space-y-1">
                         {exp.achievements.map((achievement, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
-                            <ArrowRight size={10} className="text-neon-blue mt-0.5 flex-shrink-0" aria-hidden="true" />
-                            <span className="leading-tight">{achievement}</span>
+                          <li key={idx} className="flex items-center gap-2 text-chrome-medium text-xs">
+                            <ArrowRight size={12} className="text-neon-blue" aria-hidden="true" />
+                            <span>{achievement}</span>
                           </li>
                         ))}
                       </ul>
@@ -179,11 +179,11 @@ export const TimelineSection = () => {
                   )}
 
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-1" aria-label="Technologies used">
+                  <div className="flex flex-wrap gap-2" aria-label="Technologies used">
                     {exp.technologies.map((tech, techIndex) => (
                       <span 
                         key={techIndex}
-                        className="px-2 py-0.5 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
+                        className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
                       >
                         {tech}
                       </span>
@@ -279,10 +279,10 @@ export const TimelineSection = () => {
           )}
         </div>
 
-        {/* Floating Background Elements - Reduced on mobile */}
+        {/* Floating Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/3 left-1/6 w-12 md:w-20 h-12 md:h-20 rounded-full bg-neon-purple/10 floating"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-10 md:w-16 h-10 md:h-16 rounded-full bg-neon-cyan/15 floating" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/3 left-1/6 w-20 h-20 rounded-full bg-neon-purple/10 floating"></div>
+          <div className="absolute bottom-1/4 right-1/6 w-16 h-16 rounded-full bg-neon-cyan/15 floating" style={{ animationDelay: '2s' }}></div>
         </div>
       </div>
     </section>
