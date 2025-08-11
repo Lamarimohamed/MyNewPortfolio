@@ -133,14 +133,14 @@ export const TimelineSection = () => {
         <div ref={timelineRef} className="relative">
           {isMobile ? (
             // Mobile Layout: Clean cards without timeline elements
-            <div className="space-y-6 px-4" role="list" aria-label="Professional experience timeline">
+            <div className="space-y-8 px-2 sm:px-4" role="list" aria-label="Professional experience timeline">
               {experiences.map((exp, index) => (
-                <div key={index} className="relative" role="listitem">
+                <div key={index} className="relative w-full" role="listitem">
                   {/* Content Card - No timeline elements on mobile */}
-                  <article className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full">
+                  <article className="glass-card p-4 sm:p-6 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full max-w-full">
                     {/* Header */}
                     <div className="mb-4">
-                      <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
+                      <h3 className="text-lg sm:text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
                         {exp.role}
                       </h3>
                       <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
@@ -162,7 +162,7 @@ export const TimelineSection = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-chrome-medium text-sm leading-relaxed mb-4">
+                    <p className="text-chrome-medium text-sm leading-relaxed mb-4 break-words">
                       {exp.description}
                     </p>
 
@@ -174,7 +174,7 @@ export const TimelineSection = () => {
                           {exp.achievements.map((achievement, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
                               <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
-                              <span className="leading-relaxed">{achievement}</span>
+                              <span className="leading-relaxed break-words">{achievement}</span>
                             </li>
                           ))}
                         </ul>
@@ -186,7 +186,7 @@ export const TimelineSection = () => {
                       {exp.technologies.map((tech, techIndex) => (
                         <span 
                           key={techIndex}
-                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
+                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20 break-words"
                         >
                           {tech}
                         </span>
