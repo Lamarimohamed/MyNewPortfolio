@@ -383,6 +383,106 @@
     .neon-button {
       @apply px-6 py-3 text-sm;
     }
+    
+    /* Better mobile spacing */
+    .glass-card {
+      @apply p-4;
+    }
+    
+    /* Mobile hero adjustments */
+    .hero-section h1 {
+      @apply text-3xl leading-tight;
+    }
+    
+    /* Mobile project grid */
+    .projects-grid {
+      @apply grid-cols-1 gap-6;
+    }
+    
+    /* Mobile navigation improvements */
+    .nav-item {
+      @apply text-sm;
+    }
+    
+    /* Timeline mobile optimizations */
+    .timeline-mobile {
+      @apply max-w-sm mx-auto;
+    }
+    
+    /* Disable heavy animations on mobile for better performance */
+    .floating,
+    .floating-slow,
+    .pulse-glow {
+      animation: none !important;
+    }
+    
+    /* Reduce blur effects on mobile */
+    .glass-card {
+      backdrop-filter: blur(5px) !important;
+    }
+    
+    /* Optimize transform properties for mobile */
+    .optimize-mobile {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* Extra small screens */
+    .glass-card {
+      @apply p-3;
+    }
+    
+    /* Smaller buttons on very small screens */
+    .chrome-button,
+    .neon-button {
+      @apply px-4 py-2 text-xs;
+    }
+    
+    /* Adjust image sizes for small screens */
+    .profile-image {
+      @apply w-64 h-64;
+    }
+    
+    /* Timeline cards optimization for very small screens */
+    .timeline-card-mobile {
+      @apply p-3 text-xs;
+    }
+    
+    /* Reduce spacing on very small screens */
+    section {
+      @apply py-16;
+    }
+  }
+  
+  /* Tablet improvements */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .projects-grid {
+      @apply grid-cols-2 gap-6;
+    }
+    
+    /* Re-enable animations on tablet+ */
+    .floating,
+    .floating-slow,
+    .pulse-glow {
+      animation: revert !important;
+    }
+  }
+  
+  /* Large desktop optimizations */
+  @media (min-width: 1025px) {
+    /* Enable all animations and effects on large screens */
+    .spline-container {
+      opacity: 0.4;
+    }
+    
+    .floating,
+    .floating-slow,
+    .pulse-glow {
+      animation: revert !important;
+    }
   }
 
   /* High contrast mode support */
