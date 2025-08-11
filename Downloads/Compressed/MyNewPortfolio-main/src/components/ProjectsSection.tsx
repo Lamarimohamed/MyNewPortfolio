@@ -116,7 +116,7 @@ export const ProjectsSection = () => {
           Featured <span className="glow-text">Projects</span>
         </h2>
 
-        <div ref={projectsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="list" aria-label="Featured projects">
+        <div ref={projectsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" role="list" aria-label="Featured projects">
           {projects.map((project) => (
             <article 
               key={project.id}

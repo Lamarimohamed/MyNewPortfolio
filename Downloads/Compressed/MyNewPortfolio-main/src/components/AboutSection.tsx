@@ -76,7 +76,7 @@ export const AboutSection = () => {
                 <img 
                   src="/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png"
                   alt="Mohamed Lamari - Software Engineer and Full-Stack Developer"
-                  className="w-80 h-80 md:w-96 md:h-96 object-cover rounded-full group-hover:scale-105 transition-transform duration-300"
+                  className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded-full group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                   width={384}
                   height={384}

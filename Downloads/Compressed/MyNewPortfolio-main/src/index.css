@@ -78,32 +78,43 @@
     --radius: 1rem;
   }
 
-  /* Dark theme is the default for this futuristic portfolio */
-}
+  * {
+    border-color: hsl(var(--border));
+    box-sizing: border-box;
+  }
 
-@layer base {
   html {
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-    /* Optimize scrolling performance */
-    scroll-padding-top: 80px;
-    /* Ensure smooth scrolling for all browsers */
-    scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--gradient-background);
-    overflow-x: hidden;
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /* Optimize for smooth scrolling */
-    will-change: scroll-position;
-    /* Ensure sections are immediately available */
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+    
+    section {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    
+    .glass-card {
+      padding: 1rem !important;
+    }
+    
+    h1, h2, h3 {
+      line-height: 1.2 !important;
+    }
   }
 
   /* Optimize scroll performance */
@@ -382,51 +393,6 @@
     .chrome-button,
     .neon-button {
       @apply px-6 py-3 text-sm;
-    }
-    
-    /* Better mobile spacing */
-    .glass-card {
-      @apply p-4;
-    }
-    
-    /* Mobile hero adjustments */
-    .hero-section h1 {
-      @apply text-3xl leading-tight;
-    }
-    
-    /* Mobile project grid */
-    .projects-grid {
-      @apply grid-cols-1 gap-6;
-    }
-    
-    /* Mobile navigation improvements */
-    .nav-item {
-      @apply text-sm;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    /* Extra small screens */
-    .glass-card {
-      @apply p-3;
-    }
-    
-    /* Smaller buttons on very small screens */
-    .chrome-button,
-    .neon-button {
-      @apply px-4 py-2 text-xs;
-    }
-    
-    /* Adjust image sizes for small screens */
-    .profile-image {
-      @apply w-64 h-64;
-    }
-  }
-  
-  /* Tablet improvements */
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .projects-grid {
-      @apply grid-cols-2 gap-6;
     }
   }
 

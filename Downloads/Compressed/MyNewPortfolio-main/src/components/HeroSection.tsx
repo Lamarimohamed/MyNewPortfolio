@@ -155,11 +155,11 @@ export const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
         <h1 
           ref={headlineRef}
           id="hero-heading"
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
         >
           Hi, I'm{' '}
           <span className="glow-text">MOHAMED LAMARI</span>
@@ -169,16 +169,16 @@ export const HeroSection = () => {
 
         <p 
           ref={subtitleRef}
-          className="text-lg md:text-xl text-chrome-medium mb-12 max-w-2xl mx-auto leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-chrome-medium mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-2"
         >
           Crafting innovative digital experiences with cutting-edge technologies.
           Passionate about creating beautiful, functional, and performant applications.
         </p>
 
-        <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4">
           <button 
             onClick={handleHireMe}
-            className="neon-button group flex items-center gap-3"
+            className="neon-button group flex items-center gap-3 w-full sm:w-auto justify-center"
             aria-label="Hire Mohamed Lamari - Navigate to contact section"
           >
             <span>Hire Me</span>
@@ -191,7 +191,7 @@ export const HeroSection = () => {
 
           <button 
             onClick={handleDownloadCV}
-            className="chrome-button group flex items-center gap-3"
+            className="chrome-button group flex items-center gap-3 w-full sm:w-auto justify-center"
             aria-label="Download Mohamed Lamari CV"
           >
             <Download 
