@@ -493,13 +493,51 @@
     max-width: 100%;
     height: auto;
     display: block;
-    image-rendering: -webkit-optimize-contrast; /* Safari */
-    image-rendering: -moz-crisp-edges; /* Firefox */
-    image-rendering: crisp-edges; /* Standard */
-    image-rendering: pixelated; /* Fallback */
+    image-rendering: auto; /* Changed from optimize-contrast for better compatibility */
     -webkit-backface-visibility: hidden; /* Safari fix */
     backface-visibility: hidden;
     transform: translateZ(0); /* Force GPU acceleration */
+    will-change: auto; /* Let browser decide */
+  }
+
+  /* Specific optimizations for profile images */
+  img[src*="lovable-uploads"],
+  img[alt*="Mohamed Lamari"] {
+    image-rendering: auto;
+    -webkit-image-rendering: auto;
+    -moz-image-rendering: auto;
+    -ms-image-rendering: auto;
+    object-fit: cover;
+    object-position: center;
+    background-color: hsl(var(--chrome-dark)); /* Fallback background */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+  }
+
+  /* Ensure images load properly in all browsers */
+  img[loading="eager"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 384px 384px; /* Default size hint */
+  }
+
+  /* Loading state for images */
+  .image-loading {
+    background: linear-gradient(90deg, 
+      hsl(var(--chrome-dark)) 25%, 
+      hsl(var(--chrome-medium)/20%) 50%, 
+      hsl(var(--chrome-dark)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 
   /* Fix for Opera and other browsers */

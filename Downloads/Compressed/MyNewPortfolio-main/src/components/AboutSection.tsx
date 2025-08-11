@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { 
   Code, 
@@ -14,33 +14,35 @@ export const AboutSection = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const iconsRef = useRef<HTMLDivElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-    // Ensure sections are immediately visible and animated smoothly
+    // Pre-load the image to ensure it's available
+    const img = new Image();
+    img.onload = () => {
+      setImageLoaded(true);
+      console.log('Profile image preloaded successfully');
+    };
+    img.onerror = () => {
+      setImageError(true);
+      console.log('Profile image failed to preload, will use fallback');
+    };
+    img.src = '/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png';
+
+    // Start animations immediately, but image will fade in when loaded
     const tl = gsap.timeline({ delay: 0.1 });
 
-    // Pre-set elements to be visible but with initial animation states
+    // Pre-set elements to be visible
     gsap.set([imageRef.current, contentRef.current, iconsRef.current], {
       opacity: 1,
       visibility: 'visible'
     });
 
-    // Ensure image is immediately visible, then animate
-    gsap.set(imageRef.current, {
-      opacity: 1,
-      visibility: 'visible',
-      x: 0
-    });
-
-    // Smooth entrance animations without delays
-    tl.fromTo(imageRef.current,
-      { opacity: 0.3, x: -20, filter: 'blur(2px)' },
-      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }
-    )
-    .fromTo(contentRef.current,
+    // Content animation (starts immediately)
+    tl.fromTo(contentRef.current,
       { opacity: 0, x: 30, filter: 'blur(3px)' },
-      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' },
-      '-=0.4'
+      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }
     );
 
     // Icons stagger animation - faster
@@ -49,7 +51,7 @@ export const AboutSection = () => {
       tl.fromTo(icons,
         { opacity: 0, y: 15, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05, ease: 'back.out(1.4)' },
-        '-=0.2'
+        '-=0.3'
       );
     }
 
@@ -57,6 +59,16 @@ export const AboutSection = () => {
       tl.kill();
     };
   }, []);
+
+  // Separate effect for image animation when it loads
+  useEffect(() => {
+    if (imageLoaded && imageRef.current) {
+      gsap.fromTo(imageRef.current,
+        { opacity: 0, x: -20, filter: 'blur(2px)', scale: 0.95 },
+        { opacity: 1, x: 0, filter: 'blur(0px)', scale: 1, duration: 0.8, ease: 'power2.out' }
+      );
+    }
+  }, [imageLoaded]);
 
   const skills = [
     { icon: Code, name: 'Frontend Development', color: 'text-neon-blue', description: 'React, Vue, TypeScript' },
@@ -66,6 +78,22 @@ export const AboutSection = () => {
     { icon: Palette, name: 'UI/UX Design', color: 'text-neon-blue', description: 'User-centered design' },
     { icon: Rocket, name: 'DevOps', color: 'text-neon-purple', description: 'CI/CD, Cloud deployment' }
   ];
+
+  const handleImageLoad = () => {
+    if (!imageLoaded) {
+      setImageLoaded(true);
+    }
+    console.log('Profile image loaded in component');
+  };
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    console.log('Image failed to load, switching to fallback');
+    const img = e.target as HTMLImageElement;
+    if (!imageError) {
+      setImageError(true);
+      img.src = '/placeholder.svg';
+    }
+  };
 
   return (
     <section 
@@ -77,32 +105,34 @@ export const AboutSection = () => {
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Profile Image */}
-          <div ref={imageRef} className="flex justify-center lg:justify-start">
+          <div ref={imageRef} className="flex justify-center lg:justify-start" style={{ opacity: imageLoaded ? 1 : 0 }}>
             <div className="relative group">
               <div className="glass-card p-2 rounded-full pulse-glow">
                 <img 
-                  src="/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png"
+                  src={imageError ? '/placeholder.svg' : '/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png'}
                   alt="Mohamed Lamari - Software Engineer and Full-Stack Developer"
                   className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded-full group-hover:scale-105 transition-transform duration-300"
                   loading="eager"
                   decoding="async"
                   width={384}
                   height={384}
-                  onError={(e) => {
-                    console.log('Image failed to load, trying fallback');
-                    const img = e.target as HTMLImageElement;
-                    img.src = '/placeholder.svg';
-                  }}
-                  onLoad={() => {
-                    console.log('Profile image loaded successfully');
-                  }}
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
                   style={{
-                    imageRendering: '-webkit-optimize-contrast',
+                    imageRendering: 'auto',
                     WebkitBackfaceVisibility: 'hidden',
                     backfaceVisibility: 'hidden',
-                    transform: 'translateZ(0)'
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
                   }}
                 />
+                
+                {/* Loading placeholder */}
+                {!imageLoaded && !imageError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-chrome-dark/20 rounded-full">
+                    <div className="w-8 h-8 border-2 border-neon-blue/30 border-t-neon-blue rounded-full animate-spin"></div>
+                  </div>
+                )}
               </div>
               
               {/* Decorative Elements */}
