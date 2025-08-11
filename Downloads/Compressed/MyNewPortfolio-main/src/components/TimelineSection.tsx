@@ -132,43 +132,43 @@ export const TimelineSection = () => {
 
         <div ref={timelineRef} className="relative">
           {isMobile ? (
-            // Mobile Layout: Single column with timeline dots
-            <div className="relative pl-8" role="list" aria-label="Professional experience timeline">
+            // Mobile Layout: Single column with timeline dots - FIXED LAYOUT
+            <div className="relative" role="list" aria-label="Professional experience timeline">
               {/* Mobile Timeline Line */}
-              <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan" aria-hidden="true"></div>
+              <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan" aria-hidden="true"></div>
               
               {experiences.map((exp, index) => (
-                <div key={index} className="relative mb-12" role="listitem">
+                <div key={index} className="relative mb-8 pl-16" role="listitem">
                   {/* Timeline Dot */}
-                  <div className="absolute -left-6 top-6 w-3 h-3 rounded-full bg-gradient-primary pulse-glow z-10" aria-hidden="true"></div>
+                  <div className="absolute left-4 top-6 w-3 h-3 rounded-full bg-gradient-primary pulse-glow z-10" aria-hidden="true"></div>
                   
-                  {/* Content Card */}
-                  <article className="glass-card p-6 ml-4 group hover:scale-105 hover:shadow-2xl transition-all duration-500">
+                  {/* Content Card - Full width with proper spacing */}
+                  <article className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full">
                     {/* Header */}
                     <div className="mb-4">
-                      <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors">
+                      <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight break-words">
                         {exp.role}
                       </h3>
-                      <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
+                      <div className="flex items-center gap-2 text-neon-blue font-medium mt-2 flex-wrap">
                         <Briefcase size={16} aria-hidden="true" />
-                        <span className="text-sm">{exp.company}</span>
+                        <span className="text-sm break-words">{exp.company}</span>
                       </div>
                     </div>
 
                     {/* Meta Info */}
                     <div className="flex flex-col gap-2 mb-4 text-chrome-medium text-sm">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <Calendar size={14} aria-hidden="true" />
-                        <span>{exp.period}</span>
+                        <span className="break-words">{exp.period}</span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <MapPin size={14} aria-hidden="true" />
-                        <span>{exp.location}</span>
+                        <span className="break-words">{exp.location}</span>
                       </div>
                     </div>
 
                     {/* Description */}
-                    <p className="text-chrome-medium text-sm leading-relaxed mb-4">
+                    <p className="text-chrome-medium text-sm leading-relaxed mb-4 break-words overflow-wrap-anywhere">
                       {exp.description}
                     </p>
 
@@ -180,7 +180,7 @@ export const TimelineSection = () => {
                           {exp.achievements.map((achievement, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
                               <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
-                              <span className="leading-relaxed">{achievement}</span>
+                              <span className="leading-relaxed break-words overflow-wrap-anywhere flex-1">{achievement}</span>
                             </li>
                           ))}
                         </ul>
@@ -192,7 +192,7 @@ export const TimelineSection = () => {
                       {exp.technologies.map((tech, techIndex) => (
                         <span 
                           key={techIndex}
-                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
+                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20 break-words"
                         >
                           {tech}
                         </span>

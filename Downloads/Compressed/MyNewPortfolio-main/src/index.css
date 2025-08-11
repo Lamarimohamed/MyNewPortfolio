@@ -592,41 +592,60 @@
   }
 }
 
-  /* Timeline section improvements */
+  /* Timeline section improvements - Enhanced mobile support */
   #timeline .glass-card {
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     max-width: 100%;
     filter: none !important; /* Remove any blur effects */
+    box-sizing: border-box;
   }
 
   #timeline .glass-card p,
   #timeline .glass-card li,
-  #timeline .glass-card span {
+  #timeline .glass-card span,
+  #timeline .glass-card h3 {
     word-wrap: break-word;
     overflow-wrap: break-word;
     line-height: 1.6;
     filter: none !important; /* Remove any blur effects */
+    max-width: 100%;
   }
 
-  /* Ensure timeline cards don't overflow on small screens */
+  /* Mobile timeline specific improvements */
   @media (max-width: 767px) {
     #timeline .glass-card {
       margin-left: 0 !important;
       margin-right: 0 !important;
       max-width: 100% !important;
       width: 100% !important;
+      min-width: 0; /* Allow shrinking */
+      overflow: hidden; /* Prevent overflow */
     }
     
     #timeline h3 {
       font-size: 1.125rem !important;
       line-height: 1.4 !important;
+      word-break: break-word;
     }
     
     #timeline .glass-card p {
       font-size: 0.875rem !important;
       line-height: 1.6 !important;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    /* Ensure timeline container doesn't overflow */
+    #timeline [role="list"] {
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* Better spacing for mobile timeline */
+    #timeline .relative.mb-8 {
+      padding-right: 1rem;
     }
   }
 
@@ -638,7 +657,7 @@
     }
     
     #timeline .glass-card p {
-      font-size: 1rem !important;
+      font-size: 0.875rem !important;
       line-height: 1.6 !important;
     }
   }
@@ -647,11 +666,17 @@
   #timeline ul li {
     padding-left: 0;
     margin-left: 0;
+    word-break: break-word;
   }
 
   #timeline .flex-shrink-0 {
     flex-shrink: 0 !important;
     margin-top: 0.125rem;
+  }
+
+  #timeline .flex-1 {
+    flex: 1;
+    min-width: 0; /* Allow text to wrap properly */
   }
 
   /* Ensure no blur effects are applied */
@@ -663,4 +688,11 @@
   /* Override any GSAP blur effects */
   #timeline [style*="blur"] {
     filter: none !important;
+  }
+
+  /* Utility class for better text wrapping */
+  .overflow-wrap-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
   }
