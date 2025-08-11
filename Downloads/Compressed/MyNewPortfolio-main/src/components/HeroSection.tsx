@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Download, ArrowRight } from 'phosphor-react';
@@ -11,8 +11,26 @@ export const HeroSection = () => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const splineRef = useRef<HTMLDivElement>(null);
+  const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
+  const [isLowPerformance, setIsLowPerformance] = useState(false);
 
   useEffect(() => {
+    // Performance detection
+    const checkPerformance = () => {
+      const isMobile = window.innerWidth < 768;
+      const isSlowDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+      const hasLowMemory = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
+      
+      setIsLowPerformance(isMobile || isSlowDevice || hasLowMemory);
+    };
+
+    checkPerformance();
+
+    // Delay Spline loading for better initial performance
+    const splineTimer = setTimeout(() => {
+      setShouldLoadSpline(true);
+    }, isLowPerformance ? 2000 : 1000);
+
     const tl = gsap.timeline({ delay: 0.1 }); // Faster start
 
     // Initial setup - ensure elements are visible initially
@@ -60,36 +78,39 @@ export const HeroSection = () => {
       x: 30, // Reduced distance for faster animation
       filter: 'blur(5px)'
     }, {
-      opacity: 0.3,
+      opacity: isLowPerformance ? 0.15 : 0.3, // Lower opacity on low-performance devices
       x: 0,
       filter: 'blur(0px)',
       duration: 0.5, // Faster duration
       ease: 'power2.out'
     }, '-=0.4');
 
-    // Optimized parallax scroll effect - reduced complexity for better performance
-    ScrollTrigger.create({
-      trigger: heroRef.current,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1, // Increased for smoother performance
-      onUpdate: (self) => {
-        const progress = self.progress;
-        // Use requestAnimationFrame for smoother performance
-        requestAnimationFrame(() => {
-          gsap.to(splineRef.current, {
-            y: progress * 30, // Reduced movement for smoother effect
-            duration: 0.05, // Faster updates
-            ease: 'none'
+    // Optimized parallax scroll effect - only on high-performance devices
+    if (!isLowPerformance) {
+      ScrollTrigger.create({
+        trigger: heroRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 2, // Increased for smoother performance
+        onUpdate: (self) => {
+          const progress = self.progress;
+          // Use requestAnimationFrame for smoother performance
+          requestAnimationFrame(() => {
+            gsap.to(splineRef.current, {
+              y: progress * 20, // Reduced movement for smoother effect
+              duration: 0.1, // Faster updates
+              ease: 'none'
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
 
     return () => {
+      clearTimeout(splineTimer);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [isLowPerformance]);
 
   const handleHireMe = () => {
     const contactSection = document.getElementById('contact');
@@ -131,20 +152,31 @@ export const HeroSection = () => {
       aria-labelledby="hero-heading"
     >
       {/* Spline 3D Background */}
-      <div ref={splineRef} className="spline-container" aria-hidden="true">
-        <iframe 
-          src='https://my.spline.design/rememberallrobot-Ahb9oqDTIyBujosHCqlDj0oz/' 
-          frameBorder='0' 
-          width='100%' 
-          height='100%'
-          className="w-full h-full"
-          title="3D Background Animation"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          sandbox="allow-scripts allow-same-origin"
-          style={{ willChange: 'transform' }}
-        />
-      </div>
+      {shouldLoadSpline && !isLowPerformance && (
+        <div ref={splineRef} className="spline-container" aria-hidden="true">
+          <iframe 
+            src='https://my.spline.design/rememberallrobot-Ahb9oqDTIyBujosHCqlDj0oz/' 
+            frameBorder='0' 
+            width='100%' 
+            height='100%'
+            className="w-full h-full"
+            title="3D Background Animation"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            sandbox="allow-scripts allow-same-origin"
+            style={{ willChange: 'transform' }}
+          />
+        </div>
+      )}
+
+      {/* Fallback background for low-performance devices */}
+      {(!shouldLoadSpline || isLowPerformance) && (
+        <div className="absolute inset-0 opacity-20" aria-hidden="true">
+          <div className="absolute inset-0 bg-gradient-to-br from-neon-blue/10 via-transparent to-neon-purple/10"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-blue/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-neon-purple/5 rounded-full blur-3xl"></div>
+        </div>
+      )}
 
       {/* Floating Neon Orbs - Optimized for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">

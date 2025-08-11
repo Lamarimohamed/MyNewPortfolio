@@ -378,14 +378,44 @@
     background: var(--gradient-background);
   }
 
-  /* Spline Container */
+  /* Spline Container - Optimized for performance */
   .spline-container {
-    @apply absolute inset-0 opacity-30;
+    @apply absolute inset-0;
+    opacity: 0.3;
     mask: radial-gradient(ellipse at center, black 40%, transparent 70%);
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
+    contain: layout style paint;
+    pointer-events: none;
+  }
+
+  .spline-container iframe {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
+  /* Mobile optimizations for 3D content */
+  @media (max-width: 768px) {
+    .spline-container {
+      opacity: 0.15 !important;
+      transform: scale(0.8) translateZ(0);
+    }
+    
+    .spline-container iframe {
+      transform: scale(0.8) translateZ(0);
+    }
+  }
+
+  /* Reduce motion for performance */
+  @media (prefers-reduced-motion: reduce) {
+    .spline-container {
+      opacity: 0.1 !important;
+      transform: none !important;
+    }
   }
 
   /* Responsive improvements */
