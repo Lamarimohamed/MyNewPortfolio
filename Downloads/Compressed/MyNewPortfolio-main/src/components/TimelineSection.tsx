@@ -74,9 +74,7 @@ export const TimelineSection = () => {
   // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      const isMobileDevice = window.innerWidth < 768;
-      setIsMobile(isMobileDevice);
-      console.log('Mobile detection:', isMobileDevice, 'Width:', window.innerWidth);
+      setIsMobile(window.innerWidth < 768);
     };
     
     checkMobile();
@@ -133,26 +131,13 @@ export const TimelineSection = () => {
         </h2>
 
         <div ref={timelineRef} className="relative">
-          {/* Debug indicator */}
-          {isMobile && (
-            <div className="mb-4 text-center text-neon-blue text-sm">
-              Mobile Timeline View ({experiences.length} experiences)
-            </div>
-          )}
-          
           {isMobile ? (
-            // Mobile Layout: Simplified timeline with visible cards
+            // Mobile Layout: Clean cards without timeline elements
             <div className="space-y-6 px-4" role="list" aria-label="Professional experience timeline">
-              {/* Mobile Timeline Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan opacity-50" aria-hidden="true"></div>
-              
               {experiences.map((exp, index) => (
-                <div key={index} className="relative flex items-start gap-4" role="listitem">
-                  {/* Timeline Dot */}
-                  <div className="w-4 h-4 rounded-full bg-gradient-primary pulse-glow z-10 mt-6 flex-shrink-0" aria-hidden="true"></div>
-                  
-                  {/* Content Card */}
-                  <article className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 flex-1 min-w-0">
+                <div key={index} className="relative" role="listitem">
+                  {/* Content Card - No timeline elements on mobile */}
+                  <article className="glass-card p-4 group hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 w-full">
                     {/* Header */}
                     <div className="mb-4">
                       <h3 className="text-lg font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
