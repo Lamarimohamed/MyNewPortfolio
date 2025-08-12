@@ -268,8 +268,16 @@
 
   /* Glassmorphic Card */
   .glass-card {
-    @apply backdrop-blur-xl bg-card/10 border border-white/10 rounded-2xl;
+    @apply backdrop-blur-xl border border-white/10 rounded-2xl;
+    background: transparent; /* Remove black background */
     box-shadow: var(--shadow-glass);
+  }
+
+  /* Timeline specific glass-card - ensure transparency */
+  #timeline .glass-card {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(24px);
   }
 
   /* Chrome Button */
@@ -592,38 +600,12 @@
   }
 }
 
-  /* Timeline section - Simple like projects */
-  #timeline .glass-card {
-    /* Basic glass card styling - same as projects */
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: transparent; /* Remove black background */
-    backdrop-filter: blur(24px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-  }
-
   /* Ensure timeline line is always visible on tablet and desktop */
   #timeline .bg-gradient-to-b {
     z-index: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
     display: block !important;
-  }
-
-  /* Mobile timeline - simple spacing like projects */
-  @media (max-width: 767px) {
-    #timeline {
-      padding: 2rem 1rem;
-    }
-
-    #timeline h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    #timeline .glass-card {
-      margin-bottom: 1rem;
-    }
   }
 
   /* Tablet specific - ensure timeline line visibility */
