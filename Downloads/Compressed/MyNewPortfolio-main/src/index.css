@@ -617,13 +617,16 @@
     }
   }
 
-  /* Mobile timeline - align exactly like project cards and prevent cutoff */
+  /* Mobile timeline - responsive positioning and wider cards */
   @media (max-width: 767px) {
     #timeline [role="list"] {
       display: grid !important;
       grid-template-columns: 1fr !important;
       gap: 1.5rem !important; /* matches gap-6 */
       width: 100% !important;
+      padding-left: 9rem !important;  /* Keep to the right! */
+      padding-right: 1rem !important; /* balance */
+      box-sizing: border-box;
     }
 
     /* Ensure no horizontal overflow or right cutoff */
@@ -631,6 +634,14 @@
     #timeline .glass-card * {
       max-width: 100% !important;
       overflow-x: visible !important;
+    }
+
+    /* Center each card and nudge away from extreme left */
+    #timeline .glass-card {
+      margin-left: 8rem !important; /* Keep to the right! */
+      margin-right: auto !important;
+      width: 105% !important; /* Much wider cards */
+      max-width: 105% !important;
     }
 
     /* Neutralize any accidental positioning */
@@ -643,5 +654,73 @@
       padding-right: 0 !important;
       width: 100% !important;
       max-width: 100% !important;
+    }
+  }
+
+  /* iPhone 14 Pro Max (430px) - move cards to the left with balanced right padding */
+  @media (min-width: 428px) and (max-width: 430px) {
+    #timeline [role="list"] {
+      padding-left: 6rem !important; /* Move to the left */
+      padding-right: 3rem !important; /* Balanced right padding */
+    }
+    
+    #timeline .glass-card {
+      margin-left: 5rem !important; /* Move to the left */
+      width: 100% !important; /* Ensure cards stay visible */
+      max-width: 100% !important;
+    }
+  }
+
+  /* iPhone XR (414px) - move cards to the left */
+  @media (min-width: 414px) and (max-width: 427px) {
+    #timeline [role="list"] {
+      padding-left: 5rem !important; /* Move to the left */
+    }
+    
+    #timeline .glass-card {
+      margin-left: 4rem !important; /* Move to the left */
+      width: 105% !important;
+      max-width: 105% !important;
+    }
+  }
+
+  /* iPhone SE (375px) - move cards to the left */
+  @media (min-width: 375px) and (max-width: 413px) {
+    #timeline [role="list"] {
+      padding-left: 4rem !important; /* Move to the left */
+    }
+    
+    #timeline .glass-card {
+      margin-left: 3rem !important; /* Move to the left */
+      width: 105% !important;
+      max-width: 105% !important;
+    }
+  }
+
+  /* Small mobile devices - keep them to the right */
+  @media (max-width: 480px) {
+    #timeline [role="list"] {
+      padding-left: 7rem !important; /* Keep to the right */
+      padding-right: 0.5rem !important;
+    }
+    
+    #timeline .glass-card {
+      margin-left: 6rem !important; /* Keep to the right */
+      width: 110% !important; /* Much wider cards */
+      max-width: 110% !important;
+    }
+  }
+
+  /* Medium mobile devices - keep them to the right */
+  @media (min-width: 481px) and (max-width: 767px) {
+    #timeline [role="list"] {
+      padding-left: 9rem !important; /* Keep to the right! */
+      padding-right: 1.5rem !important;
+    }
+    
+    #timeline .glass-card {
+      margin-left: 8rem !important; /* Keep to the right! */
+      width: 108% !important; /* Much wider cards */
+      max-width: 108% !important;
     }
   }
