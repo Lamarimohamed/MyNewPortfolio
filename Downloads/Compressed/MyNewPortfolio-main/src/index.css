@@ -602,6 +602,14 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   }
 
+  /* Ensure timeline line is always visible on tablet and desktop */
+  #timeline .bg-gradient-to-b {
+    z-index: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+
   /* Mobile timeline - simple spacing like projects */
   @media (max-width: 767px) {
     #timeline {
@@ -615,5 +623,14 @@
 
     #timeline .glass-card {
       margin-bottom: 1rem;
+    }
+  }
+
+  /* Tablet specific - ensure timeline line visibility */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    #timeline .bg-gradient-to-b {
+      opacity: 1 !important;
+      visibility: visible !important;
+      z-index: 0 !important;
     }
   }

@@ -210,10 +210,10 @@ export const TimelineSection = () => {
               ))}
             </div>
           ) : (
-            // Desktop Layout: Traditional alternating timeline
+            // Tablet & Desktop Layout: Traditional alternating timeline with line
             <>
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan" aria-hidden="true"></div>
+              {/* Timeline Line - Always visible on tablet and desktop */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-neon-blue via-neon-purple to-neon-cyan z-0" aria-hidden="true"></div>
 
               <div role="list" aria-label="Professional experience timeline">
                 {experiences.map((exp, index) => (
