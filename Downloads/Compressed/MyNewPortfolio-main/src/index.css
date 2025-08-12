@@ -592,145 +592,28 @@
   }
 }
 
-  /* Timeline section improvements - Enhanced mobile support */
+  /* Timeline section - Simple like projects */
   #timeline .glass-card {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    max-width: 100%;
-    filter: none !important; /* Remove any blur effects */
-    box-sizing: border-box;
+    /* Basic glass card styling - same as projects */
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent; /* Remove black background */
+    backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   }
 
-  #timeline .glass-card p,
-  #timeline .glass-card li,
-  #timeline .glass-card span,
-  #timeline .glass-card h3 {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.6;
-    filter: none !important; /* Remove any blur effects */
-    max-width: 100%;
-  }
-
-  /* Mobile timeline specific improvements */
+  /* Mobile timeline - simple spacing like projects */
   @media (max-width: 767px) {
     #timeline {
-      padding: 2rem 1rem !important;
-      min-height: auto !important;
-    }
-
-    #timeline .max-w-4xl {
-      max-width: 100% !important;
-      padding: 0 !important;
+      padding: 2rem 1rem;
     }
 
     #timeline h2 {
-      font-size: 2rem !important;
-      margin-bottom: 2rem !important;
+      font-size: 2rem;
+      margin-bottom: 2rem;
     }
 
     #timeline .glass-card {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      max-width: 100% !important;
-      width: 100% !important;
-      min-width: 0; /* Allow shrinking */
-      overflow: visible; /* Allow content to be visible */
-      padding: 1rem !important;
-      margin-bottom: 1rem !important;
+      margin-bottom: 1rem;
     }
-    
-    #timeline h3 {
-      font-size: 1.125rem !important;
-      line-height: 1.4 !important;
-      word-break: break-word;
-    }
-    
-    #timeline .glass-card p {
-      font-size: 0.875rem !important;
-      line-height: 1.6 !important;
-      word-break: break-word;
-      overflow-wrap: anywhere;
-    }
-
-    /* Ensure timeline container doesn't overflow but content is visible */
-    #timeline [role="list"] {
-      max-width: 100%;
-      overflow: visible;
-      padding: 0 0.5rem;
-    }
-
-    /* Better spacing for mobile timeline */
-    #timeline .relative.mb-8 {
-      padding-right: 1rem;
-    }
-
-    /* Ensure mobile cards are fully visible */
-    #timeline .glass-card {
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(24px);
-    }
-
-    /* Fix mobile text wrapping */
-    #timeline .glass-card * {
-      max-width: 100%;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-
-    /* Ensure proper spacing between timeline items */
-    #timeline .space-y-8 > * + * {
-      margin-top: 2rem !important;
-    }
-  }
-
-  /* Tablet specific improvements */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    #timeline .glass-card {
-      max-width: 100% !important;
-      width: 100% !important;
-    }
-    
-    #timeline .glass-card p {
-      font-size: 0.875rem !important;
-      line-height: 1.6 !important;
-    }
-  }
-
-  /* Better spacing for timeline achievements */
-  #timeline ul li {
-    padding-left: 0;
-    margin-left: 0;
-    word-break: break-word;
-  }
-
-  #timeline .flex-shrink-0 {
-    flex-shrink: 0 !important;
-    margin-top: 0.125rem;
-  }
-
-  #timeline .flex-1 {
-    flex: 1;
-    min-width: 0; /* Allow text to wrap properly */
-  }
-
-  /* Ensure no blur effects are applied */
-  #timeline * {
-    filter: none !important;
-    backdrop-filter: none !important;
-  }
-
-  /* Override any GSAP blur effects */
-  #timeline [style*="blur"] {
-    filter: none !important;
-  }
-
-  /* Utility class for better text wrapping */
-  .overflow-wrap-anywhere {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    hyphens: auto;
   }
