@@ -616,3 +616,32 @@
       z-index: 0 !important;
     }
   }
+
+  /* Mobile timeline - align exactly like project cards and prevent cutoff */
+  @media (max-width: 767px) {
+    #timeline [role="list"] {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important; /* matches gap-6 */
+      width: 100% !important;
+    }
+
+    /* Ensure no horizontal overflow or right cutoff */
+    #timeline .glass-card,
+    #timeline .glass-card * {
+      max-width: 100% !important;
+      overflow-x: visible !important;
+    }
+
+    /* Neutralize any accidental positioning */
+    #timeline .relative {
+      left: auto !important;
+      right: auto !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }

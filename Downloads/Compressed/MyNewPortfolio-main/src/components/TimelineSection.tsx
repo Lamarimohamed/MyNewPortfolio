@@ -145,68 +145,69 @@ export const TimelineSection = () => {
 
         <div ref={timelineRef} className="relative">
           {isMobile ? (
-            // Mobile Layout: Simple cards like project cards
-            <div className="space-y-6" role="list" aria-label="Professional experience timeline">
+            // Mobile Layout: EXACTLY like project cards
+            <div className="grid grid-cols-1 gap-6 sm:gap-8" role="list" aria-label="Professional experience timeline">
               {experiences.map((exp, index) => (
-                <div key={index} className="relative" role="listitem">
-                  {/* Content Card - Simple like project cards */}
-                  <article className="glass-card p-6 group hover:scale-105 hover:shadow-2xl transition-all duration-500 w-full">
-                    {/* Header */}
+                <article 
+                  key={index}
+                  className="glass-card p-6 group hover:scale-105 hover:shadow-2xl transition-all duration-500 w-full"
+                  role="listitem"
+                >
+                  {/* Header */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
+                      {exp.role}
+                    </h3>
+                    <div className="flex items-center gap-2 text-neon-blue font-medium">
+                      <Briefcase size={16} aria-hidden="true" />
+                      <span className="text-sm">{exp.company}</span>
+                    </div>
+                  </div>
+
+                  {/* Meta Info */}
+                  <div className="flex flex-col gap-2 my-4 text-chrome-medium text-sm">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={14} aria-hidden="true" />
+                      <span>{exp.period}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin size={14} aria-hidden="true" />
+                      <span>{exp.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-chrome-medium text-sm leading-relaxed mb-4">
+                    {exp.description}
+                  </p>
+
+                  {/* Achievements */}
+                  {exp.achievements && (
                     <div className="mb-4">
-                      <h3 className="text-xl font-semibold text-chrome-light group-hover:text-neon-blue transition-colors leading-tight">
-                        {exp.role}
-                      </h3>
-                      <div className="flex items-center gap-2 text-neon-blue font-medium mt-2">
-                        <Briefcase size={16} aria-hidden="true" />
-                        <span className="text-sm">{exp.company}</span>
-                      </div>
+                      <h4 className="text-sm font-semibold text-chrome-light mb-3">Key Achievements:</h4>
+                      <ul className="space-y-2">
+                        {exp.achievements.map((achievement, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
+                            <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
+                            <span className="leading-relaxed">{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
+                  )}
 
-                    {/* Meta Info */}
-                    <div className="flex flex-col gap-2 mb-4 text-chrome-medium text-sm">
-                      <div className="flex items-center gap-2">
-                        <Calendar size={14} aria-hidden="true" />
-                        <span>{exp.period}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin size={14} aria-hidden="true" />
-                        <span>{exp.location}</span>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-chrome-medium text-sm leading-relaxed mb-4">
-                      {exp.description}
-                    </p>
-
-                    {/* Achievements */}
-                    {exp.achievements && (
-                      <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-chrome-light mb-3">Key Achievements:</h4>
-                        <ul className="space-y-2">
-                          {exp.achievements.map((achievement, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-chrome-medium text-xs">
-                              <ArrowRight size={12} className="text-neon-blue mt-1 flex-shrink-0" aria-hidden="true" />
-                              <span className="leading-relaxed">{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2" aria-label="Technologies used">
-                      {exp.technologies.map((tech, techIndex) => (
-                        <span 
-                          key={techIndex}
-                          className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                </div>
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2" aria-label="Technologies used">
+                    {exp.technologies.map((tech, techIndex) => (
+                      <span 
+                        key={techIndex}
+                        className="px-2 py-1 text-xs font-medium rounded-md bg-chrome-dark/50 text-neon-cyan border border-neon-cyan/20"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </article>
               ))}
             </div>
           ) : (
