@@ -11,9 +11,9 @@ export const SkillsSection = () => {
       title: 'Frontend Development',
       skills: [
         { name: 'React/Next.js', level: 60, description: 'Modern React ecosystem and Next.js framework' },
-        { name: 'TypeScript', level: 90, description: 'Type-safe JavaScript development' },
-        { name: 'javascript', level: 80, description: 'Progressive JavaScript framework' },
-        { name: 'CSS/SCSS', level: 90, description: 'Advanced styling and animations' },
+        { name: 'TypeScript', level: 40, description: 'Type-safe JavaScript development' },
+        { name: 'javascript', level: 70, description: 'Progressive JavaScript framework' },
+        { name: 'CSS/SCSS', level: 80, description: 'Advanced styling and animations' },
       ]
     },
     {
@@ -21,15 +21,15 @@ export const SkillsSection = () => {
       skills: [
         { name: 'Node.js', level: 50, description: 'Server-side JavaScript runtime' },
         { name: 'Python/Php', level: 60, description: 'Python web development and automation' },
-        { name: 'PostgreSQL', level: 70, description: 'Relational database management' },
-        { name: 'MongoDB', level: 75, description: 'NoSQL database solutions' },
+        { name: 'PostgreSQL', level: 60, description: 'Relational database management' },
+        { name: 'MongoDB', level: 45, description: 'NoSQL database solutions' },
       ]
     },
     {
       title: 'Tools & Technologies',
       skills: [
-        { name: 'Docker', level: 60, description: 'Containerization and deployment' },
-        { name: 'AWS', level: 60, description: 'Cloud infrastructure and services' },
+        { name: 'Docker', level: 50, description: 'Containerization and deployment' },
+        { name: 'AWS', level: 50, description: 'Cloud infrastructure and services' },
         { name: 'Git', level: 80, description: 'Version control and collaboration' },
         { name: 'GSAP', level: 60, description: 'Advanced animations and interactions' },
       ]
