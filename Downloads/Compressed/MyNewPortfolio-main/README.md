@@ -9,7 +9,7 @@
 
 *A modern, responsive portfolio showcasing full-stack development expertise with cutting-edge technologies*
 
-[🌐 **Live Demo**](https://your-portfolio-url.vercel.app) • [📧 **Contact**](mailto:your-email@example.com) • [💼 **LinkedIn**](https://linkedin.com/in/your-profile)
+
 
 </div>
 
@@ -263,16 +263,6 @@ Modify `src/index.css` for:
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
----
-
-## 📞 **Contact & Connect**
-
-- **🌐 Portfolio**: [your-portfolio-url.vercel.app](https://your-portfolio-url.vercel.app)
-- **📧 Email**: [your-email@example.com](mailto:your-email@example.com)
-- **💼 LinkedIn**: [your-linkedin-profile](https://linkedin.com/in/your-profile)
-- **🐙 GitHub**: [@Lamarimohamed](https://github.com/Lamarimohamed)
-
----
 
 <div align="center">
 
