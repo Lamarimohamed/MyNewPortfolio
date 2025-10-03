@@ -1,0 +1,210 @@
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { 
+  Code, 
+  Database, 
+  Globe, 
+  Lightning, 
+  Palette, 
+  Rocket 
+} from 'phosphor-react';
+
+export const AboutSection = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const iconsRef = useRef<HTMLDivElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    // Pre-load the image to ensure it's available
+    const img = new Image();
+    img.onload = () => {
+      setImageLoaded(true);
+      console.log('Profile image preloaded successfully');
+    };
+    img.onerror = () => {
+      setImageError(true);
+      console.log('Profile image failed to preload, will use fallback');
+    };
+    img.src = '/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png';
+
+    // Start animations immediately, but image will fade in when loaded
+    const tl = gsap.timeline({ delay: 0.1 });
+
+    // Pre-set elements to be visible
+    gsap.set([imageRef.current, contentRef.current, iconsRef.current], {
+      opacity: 1,
+      visibility: 'visible'
+    });
+
+    // Content animation (starts immediately)
+    tl.fromTo(contentRef.current,
+      { opacity: 0, x: 30, filter: 'blur(3px)' },
+      { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }
+    );
+
+    // Icons stagger animation - faster
+    const icons = iconsRef.current?.children;
+    if (icons) {
+      tl.fromTo(icons,
+        { opacity: 0, y: 15, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05, ease: 'back.out(1.4)' },
+        '-=0.3'
+      );
+    }
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
+  // Separate effect for image animation when it loads
+  useEffect(() => {
+    if (imageLoaded && imageRef.current) {
+      gsap.fromTo(imageRef.current,
+        { opacity: 0, x: -20, filter: 'blur(2px)', scale: 0.95 },
+        { opacity: 1, x: 0, filter: 'blur(0px)', scale: 1, duration: 0.8, ease: 'power2.out' }
+      );
+    }
+  }, [imageLoaded]);
+
+  const skills = [
+    { icon: Code, name: 'Frontend Development', color: 'text-neon-blue', description: 'React, Vue, TypeScript' },
+    { icon: Database, name: 'Backend Systems', color: 'text-neon-purple', description: 'Node.js, Python, APIs' },
+    { icon: Globe, name: 'Full-Stack', color: 'text-neon-cyan', description: 'End-to-end solutions' },
+    { icon: Lightning, name: 'Performance', color: 'text-neon-pink', description: 'Optimization & scaling' },
+    { icon: Palette, name: 'UI/UX Design', color: 'text-neon-blue', description: 'User-centered design' },
+    { icon: Rocket, name: 'DevOps', color: 'text-neon-purple', description: 'CI/CD, Cloud deployment' }
+  ];
+
+  const handleImageLoad = () => {
+    if (!imageLoaded) {
+      setImageLoaded(true);
+    }
+    console.log('Profile image loaded in component');
+  };
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    console.log('Image failed to load, switching to fallback');
+    const img = e.target as HTMLImageElement;
+    if (!imageError) {
+      setImageError(true);
+      img.src = '/placeholder.svg';
+    }
+  };
+
+  return (
+    <section 
+      ref={sectionRef}
+      className="min-h-screen flex items-center py-20 px-6 relative bg-background"
+      id="about"
+      aria-labelledby="about-heading"
+    >
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Profile Image */}
+          <div ref={imageRef} className="flex justify-center lg:justify-start" style={{ opacity: imageLoaded ? 1 : 0 }}>
+            <div className="relative group">
+              <div className="glass-card p-2 rounded-full pulse-glow">
+                <img 
+                  src={imageError ? '/placeholder.svg' : '/lovable-uploads/786b27e3-73f7-45c0-9e38-2aa9c47e2f2d.png'}
+                  alt="Mohamed Lamari - Software Engineer and Full-Stack Developer"
+                  className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded-full group-hover:scale-105 transition-transform duration-300"
+                  loading="eager"
+                  decoding="async"
+                  width={384}
+                  height={384}
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                  style={{
+                    imageRendering: 'auto',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
+                  }}
+                />
+                
+                {/* Loading placeholder */}
+                {!imageLoaded && !imageError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-chrome-dark/20 rounded-full">
+                    <div className="w-8 h-8 border-2 border-neon-blue/30 border-t-neon-blue rounded-full animate-spin"></div>
+                  </div>
+                )}
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-neon-blue/50 floating" aria-hidden="true"></div>
+              <div className="absolute -bottom-6 -left-6 w-12 h-12 rounded-full bg-neon-purple/30 floating" style={{ animationDelay: '1s' }} aria-hidden="true"></div>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div ref={contentRef} className="space-y-8">
+            <div>
+              <h2 id="about-heading" className="text-4xl md:text-5xl font-bold mb-6">
+                About <span className="glow-text">Me</span>
+              </h2>
+              
+              <div className="space-y-4 text-chrome-medium text-lg leading-relaxed">
+                <p>
+                  I'm a passionate software engineer with expertise in modern web technologies 
+                  and a keen eye for creating exceptional digital experiences. With years of 
+                  experience in full-stack development, I specialize in building scalable, 
+                  performant applications that solve real-world problems.
+                </p>
+                
+                <p>
+                  My journey in technology has led me to master various programming languages 
+                  and frameworks, always staying on the cutting edge of innovation. I believe 
+                  in writing clean, maintainable code and creating user interfaces that are 
+                  both beautiful and functional.
+                </p>
+                
+                <p>
+                  When I'm not coding, you'll find me exploring new technologies, contributing 
+                  to open-source projects, or sharing knowledge with the developer community.
+                </p>
+              </div>
+            </div>
+
+            {/* Skills Grid */}
+            <div>
+              <h3 className="text-2xl font-semibold mb-6 text-chrome-light">Core Expertise</h3>
+              <div ref={iconsRef} className="grid grid-cols-2 md:grid-cols-3 gap-6" role="list" aria-label="Core expertise areas">
+                {skills.map((skill, index) => (
+                  <div 
+                    key={index}
+                    className="glass-card p-6 text-center group hover:scale-105 transition-transform duration-300 cursor-pointer optimize-performance"
+                    role="listitem"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        // Add interaction logic here if needed
+                      }
+                    }}
+                  >
+                    <skill.icon 
+                      size={32} 
+                      className={`mx-auto mb-3 ${skill.color} group-hover:drop-shadow-glow transition-all duration-300`}
+                      aria-hidden="true"
+                    />
+                    <p className="text-sm font-medium text-chrome-light group-hover:text-foreground transition-colors">
+                      {skill.name}
+                    </p>
+                    <p className="text-xs text-chrome-medium mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {skill.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
