@@ -10,7 +10,10 @@
 *A modern, responsive portfolio showcasing full-stack development expertise with cutting-edge technologies*
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3c1b4f3afa07f0392419b3f0be6d9ba50281d676
 </div>
 
 ---
@@ -264,6 +267,10 @@ Modify `src/index.css` for:
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3c1b4f3afa07f0392419b3f0be6d9ba50281d676
 <div align="center">
 
 **Made with ❤️ by [LAMARI MOHAMED](https://github.com/Lamarimohamed)**

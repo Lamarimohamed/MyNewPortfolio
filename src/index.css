@@ -78,7 +78,6 @@
     --radius: 1rem;
   }
 
-<<<<<<< HEAD
   * {
     border-color: hsl(var(--border));
     box-sizing: border-box;
@@ -134,7 +133,7 @@
     input[type="email"] {
       padding-left: 3.5rem !important; /* Increased spacing for mobile */
     }
-=======
+  }
   /* Dark theme is the default for this futuristic portfolio */
 }
 
@@ -161,7 +160,6 @@
     will-change: scroll-position;
     /* Ensure sections are immediately available */
     scroll-behavior: smooth;
->>>>>>> 120b8b669adff9caefa56f644e3f0d92f9c8068c
   }
 
   /* Optimize scroll performance */
@@ -297,7 +295,6 @@
 
   /* Glassmorphic Card */
   .glass-card {
-<<<<<<< HEAD
     @apply backdrop-blur-xl border border-white/10 rounded-2xl;
     background: transparent; /* Remove black background */
     box-shadow: var(--shadow-glass);
@@ -309,13 +306,6 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(24px);
   }
-
-=======
-    @apply backdrop-blur-xl bg-card/10 border border-white/10 rounded-2xl;
-    box-shadow: var(--shadow-glass);
-  }
-
->>>>>>> 120b8b669adff9caefa56f644e3f0d92f9c8068c
   /* Chrome Button */
   .chrome-button {
     @apply px-8 py-4 rounded-xl font-semibold text-foreground relative overflow-hidden;
@@ -440,22 +430,14 @@
     background: var(--gradient-background);
   }
 
-<<<<<<< HEAD
-  /* Spline Container - Optimized for performance and mouse interaction */
-  .spline-container {
-    @apply absolute inset-0;
-    opacity: 0.35; /* Slightly increased base opacity */
-=======
   /* Spline Container */
   .spline-container {
     @apply absolute inset-0 opacity-30;
->>>>>>> 120b8b669adff9caefa56f644e3f0d92f9c8068c
     mask: radial-gradient(ellipse at center, black 40%, transparent 70%);
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
-<<<<<<< HEAD
     contain: layout style paint;
     pointer-events: auto; /* Enable mouse interaction */
     transform-style: preserve-3d;
@@ -608,8 +590,6 @@
       transform: none !important;
       pointer-events: none !important;
     }
-=======
->>>>>>> 120b8b669adff9caefa56f644e3f0d92f9c8068c
   }
 
   /* Responsive improvements */
@@ -643,7 +623,6 @@
     transform: translateZ(0);
     backface-visibility: hidden;
   }
-<<<<<<< HEAD
 }
 
   /* Ensure timeline line is always visible on tablet and desktop */
@@ -770,6 +749,3 @@
       max-width: 108% !important;
     }
   }
-=======
-}
->>>>>>> 120b8b669adff9caefa56f644e3f0d92f9c8068c
