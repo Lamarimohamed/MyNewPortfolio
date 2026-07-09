@@ -22,11 +22,11 @@ export const TimelineSection = () => {
       ]
     },
       {
-      role: 'UI UX Designer/Frontend Intern (Part-Time)',
+      role: 'UI Designer/Frontend Intern (Part-Time)',
       company: 'Ai vishvena suits',
       period: '10/25 - 1/26',
       location: 'Remote',
-      description: 'Assisted in designing user interfaces and improving user experience for web and mobile applications. Focused on creating intuitive designs that enhance user engagement and accessibility.ensuring seamless integration with enterprise tools. Collaborated with cross-functional teams todeliver an innovative solution that improves user engagement and streamlines workflows.',
+      description: 'Assisted in designing user interfaces and improving user experience for web and mobile applications. Focused on creating intuitive designs that enhance user engagement and accessibility.ensuring seamless integration with enterprise tools.',
       technologies: ['UX Research', 'XD', 'Figma', 'UX', 'UI'],
       achievements: [
         'Created wireframes, mockups, and interactive prototypes for multiple projects',
@@ -34,7 +34,7 @@ export const TimelineSection = () => {
       ]
     },
     {
-      role: 'UI UX Designer/Frontend Intern (Part-Time)',
+      role: 'UI UX Designer/Frontend Dev(Part-Time)',
       company: 'Freelance',
       period: '2023 - Present',
       location: 'Remote',
