@@ -95,11 +95,10 @@ export const TimelineSection = () => {
     }
   ];
 
-  // Mobile & Tablet detection — use simple card layout below 1024px,
-  // alternating timeline with the center line only on large desktop (>=1024px)
+  // Mobile detection
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(window.innerWidth < 768);
     };
     
     checkMobile();
