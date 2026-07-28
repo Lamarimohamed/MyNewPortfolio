@@ -12,7 +12,7 @@ export const ProjectsSection = () => {
       id: 1,
       title: 'Bright LED Catalog',
       description: 'Electronics lab catalog with Supabase backend, admin dashboard, and responsive design for managing LED products and lab equipment.',
-      image: '/lovable-uploads/bright-led-catalog.png',
+      image: '/lovable-uploads/bright-led-catalog.jpg',
       tech: ['React', 'TypeScript', 'Supabase', 'Vite', 'PostgreSQL'],
       github: 'https://github.com/Lamarimohamed/DesignElectronicsLabCatalog',
       live: 'https://electroniccatalog.lamarimohamed92.workers.dev/',
