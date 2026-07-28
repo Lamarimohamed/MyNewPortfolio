@@ -10,6 +10,16 @@ export const ProjectsSection = () => {
   const projects = [
     {
       id: 1,
+      title: 'Bright LED Catalog',
+      description: 'Electronics lab catalog with Supabase backend, admin dashboard, and responsive design for managing LED products and lab equipment.',
+      image: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Modern%20electronics%20lab%20LED%20catalog%20dashboard%20with%20bright%20LED%20products%20display%2C%20sleek%20dark%20theme%20interface%2C%20product%20grid%20layout%2C%20professional%20UI%20design&image_size=landscape_16_9',
+      tech: ['React', 'TypeScript', 'Supabase', 'Vite', 'PostgreSQL'],
+      github: 'https://github.com/Lamarimohamed/DesignElectronicsLabCatalog',
+      live: 'https://electroniccatalog.lamarimohamed92.workers.dev/',
+      featured: true
+    },
+    {
+      id: 2,
       title: 'E-Commerce Platform',
       description: 'Full-stack e-commerce solution with modern UI, secure payments, and admin dashboard.',
       image: '/lovable-uploads/6b977a57-9096-434a-86b9-5854a12008b2.png',
@@ -19,7 +29,7 @@ export const ProjectsSection = () => {
       featured: true
     },
     {
-      id: 2,
+      id: 3,
       title: 'Carvila car dealer',
       description: 'Responsive landing page for a car dealership',
       image: '/lovable-uploads/38bd6065-fd87-44b4-9df6-44426cf53cdb.png',
@@ -29,17 +39,17 @@ export const ProjectsSection = () => {
       featured: true
     },
     {
-      id: 3,
+      id: 4,
       title: 'FinEase Mobile App',
       description: 'Modern mobile banking application with clean UI, financial insights, and card management features.',
       image: '/finease-mobile-app.jpg',
       tech: ['React Native', 'TypeScript', 'Tailwind CSS', 'Financial APIs'],
       github: 'https://github.com/Lamarimohamed/finease-mobile-app',
       live: 'https://github.com/Lamarimohamed/finease-mobile-app',
-      featured: true
+      featured: false
     },
     {
-      id: 4,
+      id: 5,
       title: 'Landing page Animation',
       description: 'very clean design and animation',
       image: '/lovable-uploads/38f87051-6538-4200-85f6-0b7df36d9861.png',
@@ -49,7 +59,7 @@ export const ProjectsSection = () => {
       featured: false
     },
     {
-      id: 5,
+      id: 6,
       title: 'Laptop UI store',
       description: 'simple responsive ui landing page made for selling laptops',
       image: '/lovable-uploads/c5d339a9-712b-4e03-8e38-c192900e8921.png',
@@ -59,7 +69,7 @@ export const ProjectsSection = () => {
       featured: false
     },
     {
-      id: 6,
+      id: 7,
       title: 'LEO Burger',
       description: 'Responsive landing page for a burger restaurant',
       image: '/lovable-uploads/5110923c-b01c-4deb-9c99-53fb372554b7.png',
